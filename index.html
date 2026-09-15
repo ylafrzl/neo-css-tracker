@@ -190,15 +190,20 @@
       </div>
 
       <!-- Toolbar Buttons -->
-      <div class="flex items-center gap-3 self-end sm:self-auto">
+      <div class="flex items-center gap-2.5 self-end sm:self-auto">
         <button onclick="toggleTheme()" class="neo-btn px-4 py-2.5 bg-white dark:bg-zinc-800 text-xs text-black dark:text-white flex items-center gap-2" title="Ganti Tema">
           <span id="theme-icon" class="text-base">🌙</span>
           <span id="theme-text" class="hidden sm:inline font-bold">MODE GELAP</span>
         </button>
 
-        <button onclick="confirmResetData()" class="neo-btn px-4 py-2.5 bg-[#ff6b6b] text-black text-xs flex items-center gap-2" title="Reset Seluruh Data">
-          <span>🔄</span>
-          <span class="font-bold">RESET</span>
+        <button onclick="confirmLoadSampleData()" class="neo-btn px-3.5 py-2.5 bg-[#ffde59] text-black text-xs flex items-center gap-1.5" title="Muat Data Simulasi">
+          <span>📋</span>
+          <span class="hidden sm:inline font-bold">DATA CONTOH</span>
+        </button>
+
+        <button onclick="confirmResetData()" class="neo-btn px-4 py-2.5 bg-[#ff6b6b] text-black text-xs flex items-center gap-2" title="Kosongkan Semua Data ke 0">
+          <span>🗑️</span>
+          <span class="font-bold">RESET KE 0</span>
         </button>
       </div>
     </header>
@@ -1001,13 +1006,32 @@
 
     function confirmResetData() {
       showModal(`
-        <h3 class="font-black text-black dark:text-white text-base uppercase">Reset Seluruh Data?</h3>
-        <p class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">Seluruh data arus kas, hutang, dan simulasi akan dikembalikan ke pengaturan default.</p>
+        <h3 class="font-black text-black dark:text-white text-base uppercase">Kosongkan Semua Data ke Rp 0?</h3>
+        <p class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">Seluruh pos pemasukan, pengeluaran, hutang, dan bonus akan dihapus menjadi 0 agar Anda dapat mulai mencatat dari awal.</p>
       `, () => {
-        appState = JSON.parse(JSON.stringify(defaultData));
+        appState.incomes = [];
+        appState.expenses = [];
+        appState.debts = [];
+        appState.quarterlyBonuses = [];
+        appState.yearlyBonuses = [];
         saveState();
         renderAll();
-        showToast("Data dikembalikan ke nilai default!", "success");
+        showToast("Semua data berhasil dikosongkan ke Rp 0!", "success");
+      });
+    }
+
+    function confirmLoadSampleData() {
+      showModal(`
+        <h3 class="font-black text-black dark:text-white text-base uppercase">Muat Data Simulasi Contoh?</h3>
+        <p class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">Data saat ini akan digantikan dengan data simulasi default untuk demonstrasi.</p>
+      `, () => {
+        appState = JSON.parse(JSON.stringify(defaultData));
+        appState.quarterlyBonuses = [{ id: 1, name: "Bonus Kinerja Triwulan", amount: 4000000 }];
+        appState.yearlyBonuses = [{ id: 1, name: "THR Idul Fitri / Keagamaan", amount: 12000000 }];
+        appState.bonusSavePercent = 80;
+        saveState();
+        renderAll();
+        showToast("Data contoh berhasil dimuat!", "success");
       });
     }
 
