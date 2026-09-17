@@ -193,7 +193,7 @@
 
   <div class="max-w-7xl mx-auto space-y-6">
 
-    <!-- Top Header Bar -->
+    <!-- Top Header Bar with Adjacent BACKUP and IMPORT JSON Buttons -->
     <header class="neo-box-lg bg-white dark:bg-[#1a1a1e] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
         <div class="flex items-center gap-3">
@@ -207,18 +207,22 @@
         </div>
       </div>
 
-      <!-- Header Action Controls -->
+      <!-- Header Action Controls: MODE, RESET, BACKUP, IMPORT JSON -->
       <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-        <button id="btn-theme-toggle" onclick="toggleTheme()" class="neo-btn px-3 py-2 bg-white dark:bg-zinc-800 text-black dark:text-white text-xs uppercase">
+        <button id="btn-theme-toggle" onclick="toggleTheme()" class="neo-btn px-3 py-2 bg-white dark:bg-zinc-800 text-black dark:text-white text-xs uppercase font-mono-nums">
           <span id="theme-text">MODE GELAP</span>
         </button>
 
-        <button onclick="showResetConfirmation()" class="neo-btn px-3 py-2 bg-[#ff6b6b] text-black text-xs uppercase" title="Kosongkan Semua Data ke 0">
+        <button onclick="showResetConfirmation()" class="neo-btn px-3 py-2 bg-[#ff6b6b] text-black text-xs uppercase font-mono-nums" title="Kosongkan Semua Data ke 0">
           RESET KE 0
         </button>
 
-        <button onclick="exportDataJSON()" class="neo-btn px-3 py-2 bg-[#4ade80] text-black text-xs uppercase" title="Ekspor Cadangan Data">
+        <button onclick="exportDataJSON()" class="neo-btn px-3 py-2 bg-[#4ade80] text-black text-xs uppercase font-mono-nums" title="Unduh File Cadangan JSON">
           BACKUP
+        </button>
+
+        <button onclick="openImportModal()" class="neo-btn px-3 py-2 bg-[#38bdf8] text-black text-xs uppercase font-mono-nums" title="Impor Data JSON / Muat Preset">
+          IMPORT JSON
         </button>
       </div>
     </header>
@@ -365,11 +369,11 @@
           </div>
         </div>
 
-        <!-- Freedom Countdown Card -->
+        <!-- Freedom Countdown Card with Post-Payoff Cashflow Metric -->
         <div class="neo-box bg-white dark:bg-[#1a1a1e] p-5 space-y-3">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-black uppercase">Proyeksi Bebas Hutang</h3>
-            <span class="neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-xs font-bold">ESTIMASI</span>
+            <span class="neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-xs font-bold font-mono-nums">ESTIMASI</span>
           </div>
           <div class="space-y-1">
             <span class="text-[11px] uppercase font-bold text-zinc-500 dark:text-zinc-400">Titik Lunas Terakhir:</span>
@@ -378,6 +382,19 @@
           <p id="stat-debt-freedom-subtext" class="text-xs font-semibold text-zinc-600 dark:text-zinc-300">
             Tidak ada sisa cicilan aktif. Seluruh kas bebas siap diinvestasikan!
           </p>
+
+          <!-- Projected Net Cashflow after Payoff -->
+          <div class="pt-2 border-t border-zinc-200 dark:border-zinc-700 space-y-1">
+            <div class="flex justify-between items-baseline text-[10px] uppercase font-black text-zinc-500 dark:text-zinc-400">
+              <span>Proyeksi Kas Bersih Pasca Bebas Hutang:</span>
+            </div>
+            <div id="stat-post-debt-free-cashflow" class="text-lg font-black font-mono-nums text-emerald-600 dark:text-emerald-400">
+              Rp 0/bln
+            </div>
+            <p id="stat-post-debt-breakdown" class="text-[10px] font-semibold text-zinc-500">
+              Seluruh kapasitas cicilan siap berputar ke instrumen produktif.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -385,7 +402,7 @@
       <div class="neo-box bg-white dark:bg-[#1a1a1e] p-5 sm:p-6 space-y-4">
         <div class="flex items-center justify-between border-b-2 border-black dark:border-white pb-3">
           <h3 class="text-base font-black uppercase">Alokasi Arus Kas Bulanan (Prinsip 50/30/20)</h3>
-          <span class="neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-xs">DIAGRAM PROPORSI</span>
+          <span class="neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-xs font-mono-nums">DIAGRAM PROPORSI</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-6">
@@ -453,14 +470,14 @@
               <h3 class="text-base font-black uppercase">Pemasukan Rutin Bulanan</h3>
               <p class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Tambahkan gaji atau penghasilan tetap</p>
             </div>
-            <span id="badge-income-count" class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-xs">0 Item</span>
+            <span id="badge-income-count" class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-xs font-mono-nums">0 Item</span>
           </div>
 
           <!-- Add Income Form -->
           <form id="form-add-income" onsubmit="handleAddIncome(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-2">
             <input type="text" id="input-income-name" placeholder="Nama sumber (mis: Gaji Pokok)" class="sm:col-span-6 px-3 py-2 text-xs font-bold neo-input" required>
             <input type="text" id="input-income-amount" placeholder="Nominal (Rp)" class="sm:col-span-4 px-3 py-2 text-xs font-bold font-mono-nums neo-input" oninput="formatInputCurrency(this)" required>
-            <button type="submit" class="sm:col-span-2 neo-btn py-2 bg-[#4ade80] text-black text-xs uppercase">
+            <button type="submit" class="sm:col-span-2 neo-btn py-2 bg-[#4ade80] text-black text-xs uppercase font-mono-nums">
               + TAMBAH
             </button>
           </form>
@@ -476,14 +493,14 @@
               <h3 class="text-base font-black uppercase">Pengeluaran Rutin Bulanan</h3>
               <p class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Biaya hidup rutin (tanpa cicilan)</p>
             </div>
-            <span id="badge-expense-count" class="neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-xs">0 Item</span>
+            <span id="badge-expense-count" class="neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-xs font-mono-nums">0 Item</span>
           </div>
 
           <!-- Add Expense Form -->
           <form id="form-add-expense" onsubmit="handleAddExpense(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-2">
             <input type="text" id="input-expense-name" placeholder="Nama pos (mis: Belanja & Tagihan)" class="sm:col-span-6 px-3 py-2 text-xs font-bold neo-input" required>
             <input type="text" id="input-expense-amount" placeholder="Nominal (Rp)" class="sm:col-span-4 px-3 py-2 text-xs font-bold font-mono-nums neo-input" oninput="formatInputCurrency(this)" required>
-            <button type="submit" class="sm:col-span-2 neo-btn py-2 bg-[#ff6b6b] text-black text-xs uppercase">
+            <button type="submit" class="sm:col-span-2 neo-btn py-2 bg-[#ff6b6b] text-black text-xs uppercase font-mono-nums">
               + TAMBAH
             </button>
           </form>
@@ -506,18 +523,18 @@
               </h3>
               <p class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Pilih frekuensi pencairan per 1, 2, atau 3 bulan</p>
             </div>
-            <span id="badge-quarterly-count" class="neo-badge px-2 py-0.5 bg-[#38bdf8] text-black text-xs">0 Item</span>
+            <span id="badge-quarterly-count" class="neo-badge px-2 py-0.5 bg-[#38bdf8] text-black text-xs font-mono-nums">0 Item</span>
           </div>
 
           <form id="form-add-quarterly" onsubmit="handleAddQuarterlyBonus(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-2">
             <input type="text" id="input-quarterly-name" placeholder="Nama bonus (mis: Insentif Rutin)" class="sm:col-span-5 px-3 py-2 text-xs font-bold neo-input" required>
             <input type="text" id="input-quarterly-amount" placeholder="Nominal (Rp)" class="sm:col-span-4 px-3 py-2 text-xs font-bold font-mono-nums neo-input" oninput="formatInputCurrency(this)" required>
-            <select id="input-quarterly-interval" class="sm:col-span-3 px-2 py-2 text-xs font-bold neo-input bg-white dark:bg-zinc-800 text-black dark:text-white">
+            <select id="input-quarterly-interval" class="sm:col-span-3 px-2 py-2 text-xs font-bold neo-input bg-white dark:bg-zinc-800 text-black dark:text-white font-mono-nums">
               <option value="1">Tiap 1 Bulan</option>
               <option value="2">Tiap 2 Bulan</option>
               <option value="3" selected>Tiap 3 Bulan</option>
             </select>
-            <button type="submit" class="sm:col-span-12 neo-btn py-2 bg-[#38bdf8] text-black text-xs uppercase mt-1">
+            <button type="submit" class="sm:col-span-12 neo-btn py-2 bg-[#38bdf8] text-black text-xs uppercase mt-1 font-mono-nums">
               + TAMBAH BONUS BERKALA
             </button>
           </form>
@@ -535,13 +552,13 @@
               </h3>
               <p class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Cair setiap 1 tahun sekali (M+12, M+24, dst.)</p>
             </div>
-            <span id="badge-yearly-count" class="neo-badge px-2 py-0.5 bg-[#c084fc] text-black text-xs">0 Item</span>
+            <span id="badge-yearly-count" class="neo-badge px-2 py-0.5 bg-[#c084fc] text-black text-xs font-mono-nums">0 Item</span>
           </div>
 
           <form id="form-add-yearly" onsubmit="handleAddYearlyBonus(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-2">
             <input type="text" id="input-yearly-name" placeholder="Nama bonus (mis: THR Lebaran)" class="sm:col-span-6 px-3 py-2 text-xs font-bold neo-input" required>
             <input type="text" id="input-yearly-amount" placeholder="Nominal (Rp)" class="sm:col-span-4 px-3 py-2 text-xs font-bold font-mono-nums neo-input" oninput="formatInputCurrency(this)" required>
-            <button type="submit" class="sm:col-span-2 neo-btn py-2 bg-[#c084fc] text-black text-xs uppercase">
+            <button type="submit" class="sm:col-span-2 neo-btn py-2 bg-[#c084fc] text-black text-xs uppercase font-mono-nums">
               + TAMBAH
             </button>
           </form>
@@ -625,6 +642,25 @@
             </p>
           </div>
         </div>
+
+        <!-- Projected Sisa Kas Bersih Post Debt Payoff Box -->
+        <div class="neo-box p-4 bg-white text-black space-y-2 border-2 border-black">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b-2 border-black pb-2">
+            <div>
+              <h4 class="text-xs sm:text-sm font-black uppercase">Proyeksi Sisa Kas Bersih Jika Sudah Lunas Hutang</h4>
+              <p id="stat-post-debt-banner-status" class="text-[11px] font-bold text-zinc-600">
+                Tidak ada sisa cicilan aktif. Seluruh kas bebas siap diinvestasikan!
+              </p>
+            </div>
+            <span id="stat-post-debt-banner-val" class="text-lg sm:text-xl font-black font-mono-nums text-emerald-700">
+              Rp 0/bln
+            </span>
+          </div>
+          <div class="flex justify-between items-center text-[10px] font-mono-nums text-zinc-600">
+            <span>Sisa Kas Bersih Saat Ini: <strong id="stat-banner-current-surplus" class="text-black">Rp 0/bln</strong></span>
+            <span>Kapasitas Tambahan Cicilan Lunas: <strong id="stat-banner-freed-payments" class="text-emerald-700">+ Rp 0/bln</strong></span>
+          </div>
+        </div>
       </div>
 
       <!-- Debt Burndown Line Chart Panel -->
@@ -662,7 +698,7 @@
       <div class="neo-box bg-white dark:bg-[#1a1a1e] p-5 space-y-4">
         <div class="flex items-center justify-between border-b-2 border-black dark:border-white pb-3">
           <h3 class="text-base font-black uppercase">+ Tambah Akun Hutang / Cicilan Pokok</h3>
-          <span class="neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-xs font-black">MULTI-ITEM</span>
+          <span class="neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-xs font-black font-mono-nums">MULTI-ITEM</span>
         </div>
 
         <form id="form-add-debt" onsubmit="handleAddDebt(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
@@ -692,7 +728,7 @@
           </div>
 
           <div class="sm:col-span-4 flex items-end">
-            <button type="submit" class="w-full neo-btn py-2.5 bg-[#4ade80] text-black text-xs uppercase">
+            <button type="submit" class="w-full neo-btn py-2.5 bg-[#4ade80] text-black text-xs uppercase font-mono-nums">
               + SIMPAN HUTANG BARU
             </button>
           </div>
@@ -728,7 +764,7 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span class="neo-badge px-3 py-1.5 bg-[#ffde59] text-black text-xs font-black uppercase">
+            <span class="neo-badge px-3 py-1.5 bg-[#ffde59] text-black text-xs font-black uppercase font-mono-nums">
               1 GRAFIK PERBANDINGAN BERSIH
             </span>
           </div>
@@ -749,16 +785,16 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <button type="button" onclick="setHorizonYears(5)" id="btn-horizon-5" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white">5 TAHUN</button>
-            <button type="button" onclick="setHorizonYears(10)" id="btn-horizon-10" class="neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black">10 TAHUN</button>
-            <button type="button" onclick="setHorizonYears(20)" id="btn-horizon-20" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white">20 TAHUN</button>
-            <button type="button" onclick="setHorizonYears(60)" id="btn-horizon-60" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white">60 TAHUN</button>
-            <button type="button" onclick="setHorizonYears(100)" id="btn-horizon-100" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white">100 TAHUN (MAX)</button>
+            <button type="button" onclick="setHorizonYears(5)" id="btn-horizon-5" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums">5 TAHUN</button>
+            <button type="button" onclick="setHorizonYears(10)" id="btn-horizon-10" class="neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black font-mono-nums">10 TAHUN</button>
+            <button type="button" onclick="setHorizonYears(20)" id="btn-horizon-20" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums">20 TAHUN</button>
+            <button type="button" onclick="setHorizonYears(60)" id="btn-horizon-60" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums">60 TAHUN</button>
+            <button type="button" onclick="setHorizonYears(100)" id="btn-horizon-100" class="neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums">100 TAHUN (MAX)</button>
             
             <div class="flex items-center gap-1.5 ml-auto">
               <span class="text-[11px] font-black uppercase">Kustom:</span>
               <input type="number" id="input-custom-horizon" min="1" max="100" value="10" class="w-16 px-2 py-1 text-center font-mono-nums text-xs font-black neo-input" onchange="setHorizonYears(this.value)">
-              <span class="text-xs font-bold">Thn</span>
+              <span class="text-xs font-bold font-mono-nums">Thn</span>
             </div>
           </div>
         </div>
@@ -795,7 +831,7 @@
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-bold text-zinc-500">Return:</span>
               <input type="number" id="rate-saham" value="14.0" step="0.5" min="0" max="50" class="w-16 px-1.5 py-0.5 text-right font-mono-nums text-xs font-black neo-input" onchange="updateAssetRates()">
-              <span class="text-xs font-black">% p.a.</span>
+              <span class="text-xs font-black font-mono-nums">% p.a.</span>
             </div>
           </div>
 
@@ -808,7 +844,7 @@
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-bold text-zinc-500">Return:</span>
               <input type="number" id="rate-reksadana" value="8.5" step="0.5" min="0" max="30" class="w-16 px-1.5 py-0.5 text-right font-mono-nums text-xs font-black neo-input" onchange="updateAssetRates()">
-              <span class="text-xs font-black">% p.a.</span>
+              <span class="text-xs font-black font-mono-nums">% p.a.</span>
             </div>
           </div>
 
@@ -821,7 +857,7 @@
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-bold text-zinc-500">Return:</span>
               <input type="number" id="rate-obligasi" value="6.5" step="0.5" min="0" max="20" class="w-16 px-1.5 py-0.5 text-right font-mono-nums text-xs font-black neo-input" onchange="updateAssetRates()">
-              <span class="text-xs font-black">% p.a.</span>
+              <span class="text-xs font-black font-mono-nums">% p.a.</span>
             </div>
           </div>
 
@@ -834,7 +870,7 @@
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-bold text-zinc-500">Return:</span>
               <input type="number" id="rate-deposito" value="4.5" step="0.5" min="0" max="15" class="w-16 px-1.5 py-0.5 text-right font-mono-nums text-xs font-black neo-input" onchange="updateAssetRates()">
-              <span class="text-xs font-black">% p.a.</span>
+              <span class="text-xs font-black font-mono-nums">% p.a.</span>
             </div>
           </div>
         </div>
@@ -914,7 +950,7 @@
           </div>
 
           <div class="sm:col-span-2 flex items-end">
-            <button type="submit" class="w-full neo-btn py-2 bg-[#4ade80] text-black text-xs uppercase">
+            <button type="submit" class="w-full neo-btn py-2 bg-[#4ade80] text-black text-xs uppercase font-mono-nums">
               SIMULASIKAN
             </button>
           </div>
@@ -1024,11 +1060,56 @@
         Apakah Anda yakin ingin melanjutkan tindakan ini?
       </p>
       <div class="flex items-center justify-end gap-2 pt-2">
-        <button id="modal-btn-cancel" class="neo-btn px-4 py-2 bg-zinc-200 text-black text-xs uppercase">
+        <button id="modal-btn-cancel" class="neo-btn px-4 py-2 bg-zinc-200 text-black text-xs uppercase font-mono-nums">
           Batal
         </button>
-        <button id="modal-btn-confirm" class="neo-btn px-4 py-2 bg-[#ff6b6b] text-black text-xs uppercase">
+        <button id="modal-btn-confirm" class="neo-btn px-4 py-2 bg-[#ff6b6b] text-black text-xs uppercase font-mono-nums">
           Ya, Lanjutkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive IMPORT JSON Modal Dialog -->
+  <div id="import-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden">
+    <div class="neo-box-lg bg-white dark:bg-[#1a1a1e] p-6 max-w-2xl w-full space-y-4 text-black dark:text-white max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b-2 border-black dark:border-white pb-3">
+        <div>
+          <h3 class="text-base sm:text-lg font-black uppercase tracking-tight">Import Data Keuangan (JSON)</h3>
+          <p class="text-xs font-semibold text-zinc-600 dark:text-zinc-300">
+            Unggah file backup .json, paste teks raw JSON, atau klik preset lengkap.
+          </p>
+        </div>
+        <button onclick="closeImportModal()" class="neo-btn px-2.5 py-1 bg-[#ff6b6b] text-black text-xs font-mono-nums" title="Tutup Modal">✕</button>
+      </div>
+
+      <!-- Quick Action Toolbar inside Modal -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div class="flex items-center gap-2">
+          <label class="neo-btn px-3 py-1.5 bg-[#38bdf8] text-black text-xs uppercase cursor-pointer font-mono-nums">
+            PILIH FILE .JSON
+            <input type="file" accept=".json" class="hidden" onchange="handleModalFileUpload(event)">
+          </label>
+          <button type="button" onclick="insertSamplePresetJSON()" class="neo-btn px-3 py-1.5 bg-[#ffde59] text-black text-xs uppercase font-mono-nums">
+            MUAT PRESET LENGKAP
+          </button>
+        </div>
+        <span class="text-[11px] font-bold text-zinc-500 font-mono-nums">Format: UTF-8 JSON</span>
+      </div>
+
+      <!-- Monospace Textarea for Raw JSON -->
+      <div class="flex-1 min-h-[220px] flex flex-col space-y-1">
+        <label class="text-[11px] font-black uppercase text-zinc-500">Tempel / Edit Kode JSON di Bawah:</label>
+        <textarea id="import-json-textarea" placeholder='Tempel data JSON di sini atau klik "MUAT PRESET LENGKAP" di atas...' class="w-full flex-1 p-3 text-xs font-mono-nums neo-input resize-none bg-zinc-50 dark:bg-zinc-900 leading-relaxed overflow-y-auto" spellcheck="false"></textarea>
+      </div>
+
+      <!-- Modal Footer Action Buttons -->
+      <div class="flex items-center justify-end gap-2 pt-3 border-t-2 border-black dark:border-white">
+        <button type="button" onclick="closeImportModal()" class="neo-btn px-4 py-2 bg-zinc-200 text-black text-xs uppercase font-mono-nums">
+          BATAL
+        </button>
+        <button type="button" onclick="applyImportedJSON()" class="neo-btn px-5 py-2 bg-[#4ade80] text-black text-xs uppercase font-mono-nums">
+          APLIKASIKAN DATA
         </button>
       </div>
     </div>
@@ -1154,6 +1235,187 @@
       };
     }
 
+    // Modal Import JSON Handlers
+    function openImportModal() {
+      const modal = document.getElementById("import-modal");
+      if (modal) modal.classList.remove("hidden");
+      playBeep();
+    }
+
+    function closeImportModal() {
+      const modal = document.getElementById("import-modal");
+      if (modal) modal.classList.add("hidden");
+      playBeep();
+    }
+
+    function insertSamplePresetJSON() {
+      const samplePreset = {
+        incomes: [
+          { id: 101, name: "Gaji Pokok & Tunjangan", amount: 18500000 },
+          { id: 102, name: "Side Project / Freelance", amount: 4500000 }
+        ],
+        expenses: [
+          { id: 201, name: "Kebutuhan Pokok & Dapur", amount: 4500000 },
+          { id: 202, name: "Operasional, Listrik & Internet", amount: 1800000 },
+          { id: 203, name: "Transportasi & Bensin", amount: 1200000 },
+          { id: 204, name: "Keluarga & Belanja Rutin", amount: 2500000 }
+        ],
+        quarterlyBonuses: [
+          { id: 301, name: "Bonus Triwulan Kinerja", amount: 7500000, interval: 3 }
+        ],
+        yearlyBonuses: [
+          { id: 401, name: "Tunjangan Hari Raya (THR)", amount: 18500000 }
+        ],
+        debts: [
+          {
+            id: 501,
+            name: "Cicilan Kendaraan Bermotor",
+            principal: 35000000,
+            monthlyPayment: 1750000,
+            startDate: new Date().toISOString().split("T")[0],
+            endDate: new Date(new Date().setMonth(new Date().getMonth() + 20)).toISOString().split("T")[0],
+            paidCount: 8
+          },
+          {
+            id: 502,
+            name: "Pinjaman Alat Kerja & Elektronik",
+            principal: 15000000,
+            monthlyPayment: 1500000,
+            startDate: new Date().toISOString().split("T")[0],
+            endDate: new Date(new Date().setMonth(new Date().getMonth() + 10)).toISOString().split("T")[0],
+            paidCount: 4
+          }
+        ],
+        emergencyFundMonthsTarget: 6,
+        emergencyFundCurrent: 20000000,
+        emergencyFundAllocPercent: 30,
+        bonusSavingPercent: 75,
+        monthlySavingPercent: 50,
+        horizonYears: 10,
+        rates: {
+          saham: 14.0,
+          reksadana: 8.5,
+          obligasi: 6.5,
+          deposito: 4.5
+        },
+        plannedGoal: {
+          name: "Beli Mobil Impian",
+          amount: 240000000
+        }
+      };
+
+      const textarea = document.getElementById("import-json-textarea");
+      if (textarea) {
+        textarea.value = JSON.stringify(samplePreset, null, 2);
+        showToast("Preset data realistis berhasil dimuat!");
+        playBeep();
+      }
+    }
+
+    function handleModalFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const textarea = document.getElementById("import-json-textarea");
+        if (textarea) textarea.value = e.target.result;
+        showToast(`File ${file.name} terbaca!`);
+        playBeep();
+      };
+      reader.readAsText(file);
+    }
+
+    function applyImportedJSON() {
+      const textarea = document.getElementById("import-json-textarea");
+      const raw = (textarea ? textarea.value : "").trim();
+      if (!raw) {
+        showToast("Silakan tempel kode JSON atau unggah file terlebih dahulu.", false);
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== 'object') {
+          showToast("Struktur JSON tidak valid.", false);
+          return;
+        }
+
+        // Map data safely into appState
+        appState.incomes = Array.isArray(parsed.incomes) ? parsed.incomes : [];
+        appState.expenses = Array.isArray(parsed.expenses) ? parsed.expenses : [];
+        appState.quarterlyBonuses = Array.isArray(parsed.quarterlyBonuses) ? parsed.quarterlyBonuses : (Array.isArray(parsed.bonuses) ? parsed.bonuses.filter(b => (b.interval || 3) < 12) : []);
+        appState.yearlyBonuses = Array.isArray(parsed.yearlyBonuses) ? parsed.yearlyBonuses : (Array.isArray(parsed.bonuses) ? parsed.bonuses.filter(b => (b.interval || 3) >= 12) : []);
+        appState.debts = Array.isArray(parsed.debts) ? parsed.debts.map(d => ({
+          id: d.id || Date.now() + Math.random(),
+          name: d.name || "Hutang",
+          principal: d.principal || d.originalAmount || 0,
+          monthlyPayment: d.monthlyPayment || 0,
+          startDate: d.startDate || new Date().toISOString().split("T")[0],
+          endDate: d.endDate || new Date().toISOString().split("T")[0],
+          paidCount: d.paidCount || (d.originalAmount && d.remainingAmount && d.monthlyPayment ? Math.round((d.originalAmount - d.remainingAmount) / d.monthlyPayment) : 0)
+        })) : [];
+
+        // Emergency Fund handling
+        if (parsed.emergencyFund) {
+          appState.emergencyFundMonthsTarget = parsed.emergencyFund.monthsTarget || 6;
+          appState.emergencyFundCurrent = parsed.emergencyFund.currentAmount || 0;
+          appState.emergencyFundAllocPercent = parsed.emergencyFund.allocPercent !== undefined ? parsed.emergencyFund.allocPercent : 30;
+        } else {
+          appState.emergencyFundMonthsTarget = parsed.emergencyFundMonthsTarget || 6;
+          appState.emergencyFundCurrent = parsed.emergencyFundCurrent || 0;
+          appState.emergencyFundAllocPercent = parsed.emergencyFundAllocPercent !== undefined ? parsed.emergencyFundAllocPercent : 30;
+        }
+
+        // Planned Goal handling
+        if (parsed.plannedGoal) {
+          appState.plannedGoal = {
+            name: parsed.plannedGoal.name || "",
+            amount: parsed.plannedGoal.amount || 0
+          };
+        } else if (parsed.goalPlan) {
+          appState.plannedGoal = {
+            name: parsed.goalPlan.name || "",
+            amount: parsed.goalPlan.targetAmount || 0
+          };
+        }
+
+        appState.bonusSavingPercent = parsed.bonusSavingPercent !== undefined ? parsed.bonusSavingPercent : (parsed.bonusPercent !== undefined ? parsed.bonusPercent : 80);
+        appState.monthlySavingPercent = parsed.monthlySavingPercent !== undefined ? parsed.monthlySavingPercent : (parsed.savingPercent !== undefined ? parsed.savingPercent : 50);
+        appState.horizonYears = parsed.horizonYears || 10;
+        if (parsed.rates) {
+          appState.rates = Object.assign({}, CLEAN_EMPTY_STATE.rates, parsed.rates);
+        }
+
+        saveState();
+        closeImportModal();
+
+        // Synchronize UI inputs
+        const sliderBonus = document.getElementById("slider-bonus-saving-percent");
+        if (sliderBonus) sliderBonus.value = appState.bonusSavingPercent;
+        const dispBonus = document.getElementById("display-bonus-saving-percent");
+        if (dispBonus) dispBonus.textContent = `${appState.bonusSavingPercent}% DIINVESTASIKAN`;
+
+        const sliderSaving = document.getElementById("slider-saving-percent");
+        if (sliderSaving) sliderSaving.value = appState.monthlySavingPercent;
+        const dispSaving = document.getElementById("display-monthly-saving-percent");
+        if (dispSaving) dispSaving.textContent = `${appState.monthlySavingPercent}% DITABUNG`;
+
+        const sliderEF = document.getElementById("slider-ef-alloc-percent");
+        if (sliderEF) sliderEF.value = appState.emergencyFundAllocPercent;
+        const dispEF = document.getElementById("display-ef-alloc-percent");
+        if (dispEF) dispEF.textContent = `${appState.emergencyFundAllocPercent}% / bln`;
+
+        setEmergencyMonthsTarget(appState.emergencyFundMonthsTarget);
+        setHorizonYears(appState.horizonYears);
+
+        renderAll();
+        showToast("Data JSON berhasil diaplikasikan ke seluruh dashboard!");
+        playBeep('lunas');
+      } catch (err) {
+        showToast("Gagal memproses JSON: Format teks salah.", false);
+      }
+    }
+
     function formatRupiah(val) {
       const num = Math.round(val || 0);
       return "Rp " + num.toLocaleString("id-ID");
@@ -1219,7 +1481,6 @@
       }
     }
 
-
     function switchTab(tabId) {
       activeTabId = tabId;
       const views = ['dashboard', 'cashflow', 'debts', 'wealth', 'goals'];
@@ -1274,7 +1535,6 @@
         }
       } catch (e) {}
     }
-
 
     function renderCashflowLists() {
       // Incomes List
@@ -1338,7 +1598,7 @@
             <div>
               <div class="flex items-center gap-1.5">
                 <span class="block">${b.name}</span>
-                <span class="neo-badge px-1.5 py-0.2 bg-[#38bdf8] text-black text-[9px]">TIAP ${itemInterval} BLN</span>
+                <span class="neo-badge px-1.5 py-0.2 bg-[#38bdf8] text-black text-[9px] font-mono-nums">TIAP ${itemInterval} BLN</span>
               </div>
               <span class="font-mono-nums text-sky-600 dark:text-sky-400 font-black">+ ${formatRupiah(b.amount)} / ${itemInterval} bln</span>
             </div>
@@ -1371,7 +1631,6 @@
         });
       }
     }
-
 
     function handlePayMonth(id) {
       const debt = appState.debts.find(d => d.id === id);
@@ -1464,6 +1723,48 @@
         document.getElementById("stat-debt-freedom-subtext").textContent = `Masih tersisa ${maxRemainingMonths} bulan angsuran hingga bebas hutang total.`;
       }
 
+      // Proyeksi Kas Bersih Pasca Hutang Lunas Calculations
+      const totalExpense = (appState.expenses || []).reduce((acc, e) => acc + e.amount, 0);
+      const currentSurplus = totalIncome - (totalExpense + totalCurrentMonthlyPayment);
+      const postDebtPayoffSurplus = totalIncome - totalExpense;
+
+      const postCashflowEl = document.getElementById("stat-post-debt-free-cashflow");
+      const postBreakdownEl = document.getElementById("stat-post-debt-breakdown");
+      const bannerStatusEl = document.getElementById("stat-post-debt-banner-status");
+      const bannerValEl = document.getElementById("stat-post-debt-banner-val");
+      const bannerCurrentSurplusEl = document.getElementById("stat-banner-current-surplus");
+      const bannerFreedPaymentsEl = document.getElementById("stat-banner-freed-payments");
+
+      if (postCashflowEl) {
+        postCashflowEl.textContent = `${formatRupiah(Math.max(0, postDebtPayoffSurplus))}/bln`;
+      }
+
+      if (postBreakdownEl) {
+        if (totalCurrentMonthlyPayment > 0) {
+          postBreakdownEl.textContent = `Surplus saat ini: ${formatRupiah(currentSurplus)} + Bebas cicilan: ${formatRupiah(totalCurrentMonthlyPayment)}`;
+        } else {
+          postBreakdownEl.textContent = `Seluruh cicilan telah tuntas. Kapasitas surplus saat ini sudah maksimal.`;
+        }
+      }
+
+      if (bannerValEl) {
+        bannerValEl.textContent = `${formatRupiah(Math.max(0, postDebtPayoffSurplus))}/bln`;
+      }
+      if (bannerCurrentSurplusEl) {
+        bannerCurrentSurplusEl.textContent = `${formatRupiah(currentSurplus)}/bln`;
+      }
+      if (bannerFreedPaymentsEl) {
+        bannerFreedPaymentsEl.textContent = `+ ${formatRupiah(totalCurrentMonthlyPayment)}/bln`;
+      }
+
+      if (bannerStatusEl) {
+        if (appState.debts.length === 0 || totalCurrentRemainingPrincipal === 0 || totalCurrentMonthlyPayment === 0) {
+          bannerStatusEl.textContent = "Tidak ada sisa cicilan aktif. Seluruh kas bebas siap diinvestasikan!";
+        } else {
+          bannerStatusEl.textContent = `Setelah seluruh cicilan lunas, anggaran cicilan ${formatRupiah(totalCurrentMonthlyPayment)}/bln akan langsung dialihkan menambah surplus bersih Anda!`;
+        }
+      }
+
       if (appState.debts.length === 0) {
         container.innerHTML = `
           <div class="col-span-full neo-box-lg bg-[#4ade80] text-black p-8 text-center space-y-2">
@@ -1493,7 +1794,7 @@
             <div>
               <div class="flex items-center gap-2">
                 <h4 class="text-sm font-black uppercase">${d.name}</h4>
-                ${isLunas ? '<span class="neo-badge px-2 py-0.5 text-[10px] bg-white text-black">LUNAS</span>' : ''}
+                ${isLunas ? '<span class="neo-badge px-2 py-0.5 text-[10px] bg-white text-black font-mono-nums">LUNAS</span>' : ''}
               </div>
               <p class="text-[11px] font-bold font-mono-nums opacity-75 mt-0.5">
                 Periode: ${d.startDate} s.d. ${d.endDate}
@@ -1502,11 +1803,11 @@
             
             <div class="flex items-center gap-1.5">
               ${currentPaid > 0 ? `
-                <button onclick="handleUndoPayMonth(${d.id})" class="neo-btn px-2 py-1 bg-[#ffde59] text-black text-xs" title="Undo 1x Pembayaran">
+                <button onclick="handleUndoPayMonth(${d.id})" class="neo-btn px-2 py-1 bg-[#ffde59] text-black text-xs font-mono-nums" title="Undo 1x Pembayaran">
                   UNDO
                 </button>
               ` : ''}
-              <button onclick="deleteDebt(${d.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-xs" title="Hapus Hutang">
+              <button onclick="deleteDebt(${d.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-xs font-mono-nums" title="Hapus Hutang">
                 ✕
               </button>
             </div>
@@ -1542,11 +1843,11 @@
             </div>
 
             ${!isLunas ? `
-              <button onclick="handlePayMonth(${d.id})" class="neo-btn px-4 py-2 bg-[#4ade80] text-black text-xs font-black uppercase">
+              <button onclick="handlePayMonth(${d.id})" class="neo-btn px-4 py-2 bg-[#4ade80] text-black text-xs font-black uppercase font-mono-nums">
                 BAYAR BULAN INI
               </button>
             ` : `
-              <span class="neo-badge px-3 py-1 bg-white text-black text-xs font-black">
+              <span class="neo-badge px-3 py-1 bg-white text-black text-xs font-black font-mono-nums">
                 TERLUNASI
               </span>
             `}
@@ -1585,7 +1886,7 @@
       if (milestonesContainer) {
         milestonesContainer.innerHTML = "";
         if (debtMilestones.length === 0) {
-          milestonesContainer.innerHTML = `<span class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-[10px]">TIDAK ADA SISA CICILAN AKTIF</span>`;
+          milestonesContainer.innerHTML = `<span class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums">TIDAK ADA SISA CICILAN AKTIF</span>`;
         } else {
           debtMilestones.forEach(m => {
             const el = document.createElement("span");
@@ -1706,7 +2007,6 @@
         }
       });
     }
-
 
     function renderDashboardDonut() {
       const totalIncome = (appState.incomes || []).reduce((a, b) => a + b.amount, 0);
@@ -2091,8 +2391,8 @@
         const btn = document.getElementById(`btn-horizon-${y}`);
         if (btn) {
           btn.className = y === parsed 
-            ? "neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black" 
-            : "neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white";
+            ? "neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black font-mono-nums" 
+            : "neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums";
         }
       });
 
@@ -2111,7 +2411,6 @@
       saveState();
       renderSpikeTimelineChart();
     }
-
 
     function handleApplyPlannedGoal(e) {
       e.preventDefault();
@@ -2190,8 +2489,8 @@
       if (badgeGoal) {
         badgeGoal.textContent = recommendedMonthly > 0 ? "KAS BEBAS" : "RP 0 / BLN";
         badgeGoal.className = recommendedMonthly > 0 
-          ? "neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px]" 
-          : "neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px]";
+          ? "neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums" 
+          : "neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px] font-mono-nums";
       }
 
       const recDesc = document.getElementById("stat-goal-recommended-desc");
@@ -2213,7 +2512,6 @@
           : (initialEFDeposit > 0 ? "Disisihkan Terpisah Rutin" : "Belum Ada Setoran");
       }
 
-      // If target amount is 0 or recommended deposit is 0, render a clean zero baseline state
       const annualRate = 7.5;
       const monthlyRate = annualRate / 100 / 12;
 
@@ -2445,7 +2743,6 @@
       });
     }
 
-
     function setEmergencyMonthsTarget(months) {
       const parsed = parseInt(months, 10) || 6;
       appState.emergencyFundMonthsTarget = parsed;
@@ -2453,8 +2750,8 @@
         const btn = document.getElementById(`btn-ef-${m}`);
         if (btn) {
           btn.className = m === parsed 
-            ? "neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black" 
-            : "neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white";
+            ? "neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black font-mono-nums" 
+            : "neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white font-mono-nums";
         }
       });
       saveState();
@@ -2682,7 +2979,6 @@
       reader.readAsText(file);
     }
 
-
     function renderAll() {
       const totalIncome = (appState.incomes || []).reduce((a, b) => a + b.amount, 0);
       const totalExpense = (appState.expenses || []).reduce((a, b) => a + b.amount, 0);
@@ -2756,12 +3052,12 @@
         surplusEl.textContent = formatRupiah(surplus);
         surplusEl.className = "text-xl sm:text-2xl font-black font-mono-nums text-emerald-600 dark:text-emerald-400";
         badgeSurplus.textContent = "SURPLUS";
-        badgeSurplus.className = "neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px]";
+        badgeSurplus.className = "neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums";
       } else {
         surplusEl.textContent = "- " + formatRupiah(Math.abs(surplus));
         surplusEl.className = "text-xl sm:text-2xl font-black font-mono-nums text-rose-600 dark:text-rose-400";
         badgeSurplus.textContent = "DEFISIT";
-        badgeSurplus.className = "neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px]";
+        badgeSurplus.className = "neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px] font-mono-nums";
       }
 
       // DSR Diagnostic
@@ -2773,17 +3069,17 @@
       const dsrRec = document.getElementById("dsr-recommendation");
       if (dsr <= 30) {
         dsrBadge.textContent = "SEHAT (<30%)";
-        dsrBadge.className = "neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-xs font-bold";
+        dsrBadge.className = "neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-xs font-bold font-mono-nums";
         document.getElementById("dsr-progress-bar").className = "h-full bg-[#4ade80] transition-all duration-300";
         dsrRec.textContent = "Kondisi sangat aman. Porsi cicilan di bawah batas rekomendasi 30%.";
       } else if (dsr <= 40) {
         dsrBadge.textContent = "WASPADA (30-40%)";
-        dsrBadge.className = "neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-xs font-bold";
+        dsrBadge.className = "neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-xs font-bold font-mono-nums";
         document.getElementById("dsr-progress-bar").className = "h-full bg-[#ffde59] transition-all duration-300";
         dsrRec.textContent = "Mendekati batas aman. Tunda mengambil cicilan baru dan fokus percepatan.";
       } else {
         dsrBadge.textContent = "BAHAYA (>40%)";
-        dsrBadge.className = "neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-xs font-bold";
+        dsrBadge.className = "neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-xs font-bold font-mono-nums";
         document.getElementById("dsr-progress-bar").className = "h-full bg-[#ff6b6b] transition-all duration-300";
         dsrRec.textContent = "Peringatan! Lebih dari 40% pemasukan tersedot cicilan hutang.";
       }
@@ -2795,7 +3091,6 @@
       renderDonutChart(totalExpense, totalMonthlyDebt, currentMonthlyEFDeposit, currentMonthlySaving, remainingFreeCash);
       renderSpikeTimelineChart();
     }
-
 
     window.onload = function () {
       initTheme();
@@ -2836,8 +3131,8 @@
           const btn = document.getElementById(`btn-ef-${m}`);
           if (btn) {
             btn.className = m === parsed 
-              ? "neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black" 
-              : "neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white";
+              ? "neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black font-mono-nums" 
+              : "neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white font-mono-nums";
           }
         });
       }
@@ -2853,8 +3148,8 @@
           const btn = document.getElementById(`btn-horizon-${y}`);
           if (btn) {
             btn.className = y === parsed 
-              ? "neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black" 
-              : "neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white";
+              ? "neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black font-mono-nums" 
+              : "neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums";
           }
         });
       }
