@@ -251,46 +251,58 @@
     <!-- ========================================================================= -->
     <main id="view-dashboard" class="space-y-6">
       
-      <!-- Top 4 Metric KPI Cards -->
+      <!-- Top 4 Metric KPI Cards with Percentage of Income -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Total Incomes -->
-        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-1">
+        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-2">
           <div class="flex items-center justify-between text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
             <span>Total Pemasukan</span>
-            <span class="neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px]">BULANAN</span>
+            <span class="neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums">100% BASIS</span>
           </div>
           <div id="stat-total-income" class="text-xl sm:text-2xl font-black font-mono-nums">Rp 0</div>
-          <p class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Gaji rutin & pemasukan tetap</p>
+          <div class="w-full h-2 border-2 border-black dark:border-white neo-box p-0 bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+            <div class="h-full bg-[#4ade80]" style="width: 100%"></div>
+          </div>
+          <p class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Total basis pemasukan bulanan</p>
         </div>
 
         <!-- Total Expenses -->
-        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-1">
+        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-2">
           <div class="flex items-center justify-between text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
             <span>Total Pengeluaran</span>
-            <span class="neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px]">RUTIN</span>
+            <span id="stat-expense-pct-badge" class="neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px] font-mono-nums">0.0% DARI KAS</span>
           </div>
           <div id="stat-total-expense" class="text-xl sm:text-2xl font-black font-mono-nums">Rp 0</div>
-          <p class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Biaya hidup tanpa cicilan</p>
+          <div class="w-full h-2 border-2 border-black dark:border-white neo-box p-0 bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+            <div id="stat-expense-pct-bar" class="h-full bg-[#ff6b6b] transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p id="stat-expense-pct-desc" class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Memakai 0.0% dari pemasukan</p>
         </div>
 
         <!-- Total Debt Payments -->
-        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-1">
+        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-2">
           <div class="flex items-center justify-between text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
             <span>Cicilan Hutang</span>
-            <span class="neo-badge px-1.5 py-0.5 bg-[#ffde59] text-black text-[10px]">ANGSURAN</span>
+            <span id="stat-debt-pct-badge" class="neo-badge px-1.5 py-0.5 bg-[#ffde59] text-black text-[10px] font-mono-nums">0.0% DARI KAS</span>
           </div>
           <div id="stat-total-debt-payment" class="text-xl sm:text-2xl font-black font-mono-nums">Rp 0</div>
-          <p class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Kewajiban bayar bulanan</p>
+          <div class="w-full h-2 border-2 border-black dark:border-white neo-box p-0 bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+            <div id="stat-debt-pct-bar" class="h-full bg-[#ffde59] transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p id="stat-debt-pct-desc" class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Memakai 0.0% dari pemasukan</p>
         </div>
 
         <!-- Free Cashflow Surplus -->
-        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-1">
+        <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-2">
           <div class="flex items-center justify-between text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
             <span>Sisa Kas Bersih</span>
-            <span id="stat-surplus-badge" class="neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px]">SURPLUS</span>
+            <span id="stat-surplus-pct-badge" class="neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums">0.0% TERSISA</span>
           </div>
           <div id="stat-free-surplus" class="text-xl sm:text-2xl font-black font-mono-nums">Rp 0</div>
-          <p class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Kapasitas tabungan & investasi</p>
+          <div class="w-full h-2 border-2 border-black dark:border-white neo-box p-0 bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+            <div id="stat-surplus-pct-bar" class="h-full bg-[#4ade80] transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p id="stat-surplus-pct-desc" class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Tersisa 0.0% dari pemasukan</p>
         </div>
       </div>
 
@@ -300,7 +312,7 @@
         <div class="neo-box bg-white dark:bg-[#1a1a1e] p-5 space-y-3">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-black uppercase">Rasio Beban Cicilan (DSR)</h3>
-            <span id="dsr-status-badge" class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-xs font-bold">SEHAT (&lt;30%)</span>
+            <span id="dsr-status-badge" class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-xs font-bold font-mono-nums">SEHAT (&lt;30%)</span>
           </div>
           <div class="flex items-baseline gap-2">
             <span id="dsr-value-display" class="text-3xl font-black font-mono-nums">0.0%</span>
@@ -336,9 +348,9 @@
           <!-- Target Horizon Switcher (3, 6, 12 Bulan) -->
           <div class="flex items-center gap-1.5 pt-1">
             <span class="text-[10px] font-black uppercase text-zinc-500">Runway:</span>
-            <button type="button" onclick="setEmergencyMonthsTarget(3)" id="btn-ef-3" class="neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white">3 Bln</button>
-            <button type="button" onclick="setEmergencyMonthsTarget(6)" id="btn-ef-6" class="neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black">6 Bln</button>
-            <button type="button" onclick="setEmergencyMonthsTarget(12)" id="btn-ef-12" class="neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white">12 Bln</button>
+            <button type="button" onclick="setEmergencyMonthsTarget(3)" id="btn-ef-3" class="neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white font-mono-nums">3 Bln</button>
+            <button type="button" onclick="setEmergencyMonthsTarget(6)" id="btn-ef-6" class="neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black font-mono-nums">6 Bln</button>
+            <button type="button" onclick="setEmergencyMonthsTarget(12)" id="btn-ef-12" class="neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white font-mono-nums">12 Bln</button>
           </div>
 
           <!-- Saldo Saat Ini & Slider Alokasi Bulanan -->
@@ -394,6 +406,58 @@
             <p id="stat-post-debt-breakdown" class="text-[10px] font-semibold text-zinc-500">
               Seluruh kapasitas cicilan siap berputar ke instrumen produktif.
             </p>
+            <div id="stat-post-debt-explicit-statement" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CFP Windfall Overview Card (Potensi Bonus & THR Tahunan) -->
+      <div class="neo-box bg-white dark:bg-[#1a1a1e] p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-black dark:border-white pb-3">
+          <div>
+            <h3 class="text-sm sm:text-base font-black uppercase tracking-tight flex items-center gap-2">
+              <span>Ringkasan Potensi Bonus & THR Tahunan (CFP Windfall Framework)</span>
+              <span class="neo-badge px-2 py-0.5 bg-[#38bdf8] text-black text-[10px] font-mono-nums">DANA SEGAR BERKALA</span>
+            </h3>
+            <p class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">
+              Total penerimaan bonus berkala & THR dalam 1 tahun yang didistribusikan terpisah dari kas operasional rutin.
+            </p>
+          </div>
+          <div class="text-left sm:text-right">
+            <span class="text-[10px] uppercase font-black text-zinc-500 block">Akumulasi 1 Tahun:</span>
+            <span id="stat-annual-windfall-total" class="text-lg sm:text-xl font-black font-mono-nums text-emerald-600 dark:text-emerald-400">Rp 0 / Thn</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono-nums">
+          <!-- Tier 1 -->
+          <div class="p-3 neo-box bg-[#f4f4f0] dark:bg-zinc-800 space-y-1">
+            <div class="flex items-center justify-between text-[11px] font-black uppercase text-rose-600 dark:text-rose-400">
+              <span>1. Hari Raya & Keluarga</span>
+              <span id="badge-windfall-t1-pct" class="neo-badge px-1.5 py-0.2 bg-[#ff6b6b] text-black text-[9px]">50%</span>
+            </div>
+            <div id="stat-windfall-t1-val" class="text-base font-black text-black dark:text-white">Rp 0</div>
+            <p class="text-[10px] font-bold text-zinc-500">Kebutuhan mudik, tradisi hari raya, dan apresiasi pribadi.</p>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="p-3 neo-box bg-[#f4f4f0] dark:bg-zinc-800 space-y-1">
+            <div class="flex items-center justify-between text-[11px] font-black uppercase text-amber-600 dark:text-amber-400">
+              <span>2. Hutang & Dana Darurat</span>
+              <span id="badge-windfall-t2-pct" class="neo-badge px-1.5 py-0.2 bg-[#ffde59] text-black text-[9px]">20%</span>
+            </div>
+            <div id="stat-windfall-t2-val" class="text-base font-black text-black dark:text-white">Rp 0</div>
+            <p class="text-[10px] font-bold text-zinc-500">Akselerasi pelunasan hutang pokok & ketahanan kas darurat.</p>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="p-3 neo-box bg-[#f4f4f0] dark:bg-zinc-800 space-y-1">
+            <div class="flex items-center justify-between text-[11px] font-black uppercase text-emerald-600 dark:text-emerald-400">
+              <span>3. Injeksi Investasi & Rencana</span>
+              <span id="badge-windfall-t3-pct" class="neo-badge px-1.5 py-0.2 bg-[#4ade80] text-black text-[9px]">30%</span>
+            </div>
+            <div id="stat-windfall-t3-val" class="text-base font-black text-black dark:text-white">Rp 0</div>
+            <p class="text-[10px] font-bold text-zinc-500">Disuntikkan ke portofolio multi-aset & tabungan berencana.</p>
           </div>
         </div>
       </div>
@@ -567,18 +631,78 @@
         </div>
       </div>
 
-      <!-- Bonus Investment Allocation Slider -->
-      <div class="neo-box bg-[#ffde59] text-black p-5 space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <!-- CFP Windfall Allocation Engine with 1-Click Presets & 3 Tiers -->
+      <div class="neo-box-lg bg-white dark:bg-[#1a1a1e] p-5 sm:p-6 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-black dark:border-white pb-3">
           <div>
-            <h4 class="text-sm font-black uppercase">Persentase Alokasi Bonus / THR ke Investasi</h4>
-            <p class="text-xs font-bold opacity-85">Tentukan porsi bonus yang ditabung (sisanya untuk konsumsi/lifestyle).</p>
+            <h3 class="text-sm sm:text-base font-black uppercase tracking-tight flex items-center gap-2">
+              <span>Metode Ahli Finansial: Alokasi Windfall (Bonus & THR)</span>
+              <span class="neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-[10px] font-mono-nums">CFP WATERFALL</span>
+            </h3>
+            <p class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">
+              Pendapatan tidak rutin tidak boleh dicampur ke kas harian. Bagi dana bonus ke dalam 3 ember terpisah secara proporsional.
+            </p>
           </div>
-          <span id="display-bonus-saving-percent" class="neo-badge px-3 py-1 bg-white text-black font-mono-nums text-sm font-black">
-            80% DIINVESTASIKAN
-          </span>
+
+          <!-- 1-Click Financial Strategy Presets -->
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-[10px] uppercase font-black text-zinc-500 mr-1">Preset:</span>
+            <button type="button" onclick="applyWindfallPreset('seimbang')" class="neo-btn px-2.5 py-1 text-[11px] bg-[#38bdf8] text-black font-mono-nums">
+              SEIMBANG (50/50)
+            </button>
+            <button type="button" onclick="applyWindfallPreset('fire')" class="neo-btn px-2.5 py-1 text-[11px] bg-[#4ade80] text-black font-mono-nums">
+              AGRESIF FIRE (20/80)
+            </button>
+            <button type="button" onclick="applyWindfallPreset('konsumtif')" class="neo-btn px-2.5 py-1 text-[11px] bg-[#ff6b6b] text-black font-mono-nums">
+              KONSUMTIF (100/0)
+            </button>
+          </div>
         </div>
-        <input type="range" id="slider-bonus-saving-percent" min="0" max="100" step="5" value="80" oninput="handleBonusPercentChange(this.value)">
+
+        <!-- 3 Tier Sliders -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Tier 1 -->
+          <div class="p-4 neo-box bg-[#f4f4f0] dark:bg-zinc-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black uppercase text-rose-600 dark:text-rose-400">1. Hari Raya & Keluarga</span>
+              <span id="label-tier-lifestyle" class="neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black font-mono-nums text-xs font-black">50%</span>
+            </div>
+            <input type="range" id="slider-tier-lifestyle" min="0" max="100" step="5" value="50" oninput="handleWindfallTierChange('lifestyle', this.value)">
+            <p class="text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
+              Untuk mudik, konsumsi hari raya, hadiah keluarga & reward. Tidak masuk investasi.
+            </p>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="p-4 neo-box bg-[#f4f4f0] dark:bg-zinc-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black uppercase text-amber-600 dark:text-amber-400">2. Hutang & Dana Darurat</span>
+              <span id="label-tier-protection" class="neo-badge px-2 py-0.5 bg-[#ffde59] text-black font-mono-nums text-xs font-black">20%</span>
+            </div>
+            <input type="range" id="slider-tier-protection" min="0" max="100" step="5" value="20" oninput="handleWindfallTierChange('protection', this.value)">
+            <p class="text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
+              Mempercepat pelunasan pokok hutang atau mengisi pos dana darurat hingga target tercapai.
+            </p>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="p-4 neo-box bg-[#f4f4f0] dark:bg-zinc-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black uppercase text-emerald-600 dark:text-emerald-400">3. Injeksi Investasi</span>
+              <span id="label-tier-invest" class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black font-mono-nums text-xs font-black">30%</span>
+            </div>
+            <input type="range" id="slider-tier-invest" min="0" max="100" step="5" value="30" oninput="handleWindfallTierChange('invest', this.value)">
+            <p class="text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
+              Modal murni yang disuntikkan ke proyeksi multi-aset & tabungan berencana (Tab 4 & 5).
+            </p>
+          </div>
+        </div>
+
+        <!-- Total Validation Indicator -->
+        <div id="windfall-total-indicator" class="p-3 neo-box bg-[#f4f4f0] dark:bg-zinc-800 flex items-center justify-between text-xs font-bold font-mono-nums">
+          <span>Total Alokasi Windfall: <strong id="windfall-total-percent" class="text-black dark:text-white font-black">100%</strong></span>
+          <span id="windfall-total-status" class="neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-[10px]">ALOKASI SEIMBANG (100%)</span>
+        </div>
       </div>
     </main>
 
@@ -660,6 +784,8 @@
             <span>Sisa Kas Bersih Saat Ini: <strong id="stat-banner-current-surplus" class="text-black">Rp 0/bln</strong></span>
             <span>Kapasitas Tambahan Cicilan Lunas: <strong id="stat-banner-freed-payments" class="text-emerald-700">+ Rp 0/bln</strong></span>
           </div>
+          <div id="stat-post-debt-banner-statement" class="mt-2"></div>
+          <div id="timeline-stepped-cashflow-recovery" class="space-y-1.5 pt-1"></div>
         </div>
       </div>
 
@@ -963,7 +1089,7 @@
         <div class="neo-box p-4 bg-white dark:bg-[#1a1a1e] space-y-1">
           <div class="flex items-center justify-between text-xs font-black uppercase text-zinc-500 dark:text-zinc-400">
             <span>Rekomendasi Setoran / Bln</span>
-            <span id="badge-goal-monthly" class="neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px]">KAS BEBAS</span>
+            <span id="badge-goal-monthly" class="neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums">KAS BEBAS</span>
           </div>
           <div id="stat-goal-recommended-monthly" class="text-xl sm:text-2xl font-black font-mono-nums text-emerald-600 dark:text-emerald-400">Rp 0/bln</div>
           <p id="stat-goal-recommended-desc" class="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Dihitung dari alokasi surplus kas bulanan setelah dana darurat diamankan.</p>
@@ -1134,7 +1260,11 @@
       expenses: [],
       quarterlyBonuses: [],
       yearlyBonuses: [],
-      bonusSavingPercent: 80,
+      windfallTiers: {
+        lifestyle: 50,
+        protection: 20,
+        invest: 30
+      },
       monthlySavingPercent: 50,
       emergencyFundMonthsTarget: 6,
       emergencyFundCurrent: 0,
@@ -1160,7 +1290,72 @@
     let goalSimulationChartInstance = null;
     let activeTabId = 'dashboard';
 
-    // Web Audio Synthesizer (No external audio URLs)
+    // Theme Management
+    function initTheme() {
+      const savedTheme = localStorage.getItem('finplan_theme');
+      const isDark = savedTheme === 'dark';
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      }
+      updateThemeButton();
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      document.documentElement.classList.toggle('light', !isDark);
+      localStorage.setItem('finplan_theme', isDark ? 'dark' : 'light');
+      updateThemeButton();
+      renderAll();
+      playBeep();
+    }
+
+    function updateThemeButton() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const txt = document.getElementById('theme-text');
+      if (txt) txt.textContent = isDark ? 'MODE TERANG' : 'MODE GELAP';
+    }
+
+    // Navigation Switcher
+    function switchTab(tabId) {
+      activeTabId = tabId;
+      const tabs = ['dashboard', 'cashflow', 'debts', 'wealth', 'goals'];
+      tabs.forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (view) {
+          if (t === tabId) {
+            view.classList.remove('hidden');
+          } else {
+            view.classList.add('hidden');
+          }
+        }
+        if (btn) {
+          if (t === tabId) {
+            btn.className = 'neo-btn px-5 py-3 text-xs uppercase tracking-wider bg-[#ffde59] text-black whitespace-nowrap';
+          } else {
+            btn.className = 'neo-btn px-5 py-3 text-xs uppercase tracking-wider bg-white dark:bg-[#1a1a1e] text-black dark:text-white whitespace-nowrap';
+          }
+        }
+      });
+
+      playBeep();
+
+      if (tabId === 'dashboard') {
+        renderDashboardDonut();
+      } else if (tabId === 'debts') {
+        renderDebtBurndownChart();
+      } else if (tabId === 'wealth') {
+        renderSpikeTimelineChart();
+      } else if (tabId === 'goals') {
+        renderGoalSimulation();
+      }
+    }
+
+    // Audio Feedback
     function playBeep(type = 'click') {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1235,6 +1430,33 @@
       };
     }
 
+    function showResetConfirmation() {
+      openModal(
+        "Reset Data ke 0",
+        "Apakah Anda yakin ingin mengosongkan seluruh data keuangan (pemasukan, pengeluaran, hutang, bonus, dan tabungan) ke Rp 0?",
+        () => {
+          appState = JSON.parse(JSON.stringify(CLEAN_EMPTY_STATE));
+          saveState();
+          syncWindfallUI();
+          renderAll();
+          showToast("Seluruh data berhasil di-reset ke 0!");
+          playBeep('lunas');
+        }
+      );
+    }
+
+    function exportDataJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `finplan_backup_${new Date().toISOString().split("T")[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("File backup JSON berhasil diunduh!");
+      playBeep();
+    }
+
     // Modal Import JSON Handlers
     function openImportModal() {
       const modal = document.getElementById("import-modal");
@@ -1289,7 +1511,11 @@
         emergencyFundMonthsTarget: 6,
         emergencyFundCurrent: 20000000,
         emergencyFundAllocPercent: 30,
-        bonusSavingPercent: 75,
+        windfallTiers: {
+          lifestyle: 40,
+          protection: 20,
+          invest: 40
+        },
         monthlySavingPercent: 50,
         horizonYears: 10,
         rates: {
@@ -1325,6 +1551,18 @@
       reader.readAsText(file);
     }
 
+    function handleImportFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const textarea = document.getElementById("import-json-textarea");
+        if (textarea) textarea.value = e.target.result;
+        applyImportedJSON();
+      };
+      reader.readAsText(file);
+    }
+
     function applyImportedJSON() {
       const textarea = document.getElementById("import-json-textarea");
       const raw = (textarea ? textarea.value : "").trim();
@@ -1340,7 +1578,6 @@
           return;
         }
 
-        // Map data safely into appState
         appState.incomes = Array.isArray(parsed.incomes) ? parsed.incomes : [];
         appState.expenses = Array.isArray(parsed.expenses) ? parsed.expenses : [];
         appState.quarterlyBonuses = Array.isArray(parsed.quarterlyBonuses) ? parsed.quarterlyBonuses : (Array.isArray(parsed.bonuses) ? parsed.bonuses.filter(b => (b.interval || 3) < 12) : []);
@@ -1355,7 +1592,6 @@
           paidCount: d.paidCount || (d.originalAmount && d.remainingAmount && d.monthlyPayment ? Math.round((d.originalAmount - d.remainingAmount) / d.monthlyPayment) : 0)
         })) : [];
 
-        // Emergency Fund handling
         if (parsed.emergencyFund) {
           appState.emergencyFundMonthsTarget = parsed.emergencyFund.monthsTarget || 6;
           appState.emergencyFundCurrent = parsed.emergencyFund.currentAmount || 0;
@@ -1366,7 +1602,6 @@
           appState.emergencyFundAllocPercent = parsed.emergencyFundAllocPercent !== undefined ? parsed.emergencyFundAllocPercent : 30;
         }
 
-        // Planned Goal handling
         if (parsed.plannedGoal) {
           appState.plannedGoal = {
             name: parsed.plannedGoal.name || "",
@@ -1379,7 +1614,17 @@
           };
         }
 
-        appState.bonusSavingPercent = parsed.bonusSavingPercent !== undefined ? parsed.bonusSavingPercent : (parsed.bonusPercent !== undefined ? parsed.bonusPercent : 80);
+        if (parsed.windfallTiers) {
+          appState.windfallTiers = Object.assign({ lifestyle: 50, protection: 20, invest: 30 }, parsed.windfallTiers);
+        } else if (parsed.bonusSavingPercent !== undefined) {
+          const inv = parsed.bonusSavingPercent;
+          appState.windfallTiers = {
+            lifestyle: Math.max(0, 100 - inv),
+            protection: 0,
+            invest: inv
+          };
+        }
+
         appState.monthlySavingPercent = parsed.monthlySavingPercent !== undefined ? parsed.monthlySavingPercent : (parsed.savingPercent !== undefined ? parsed.savingPercent : 50);
         appState.horizonYears = parsed.horizonYears || 10;
         if (parsed.rates) {
@@ -1388,12 +1633,7 @@
 
         saveState();
         closeImportModal();
-
-        // Synchronize UI inputs
-        const sliderBonus = document.getElementById("slider-bonus-saving-percent");
-        if (sliderBonus) sliderBonus.value = appState.bonusSavingPercent;
-        const dispBonus = document.getElementById("display-bonus-saving-percent");
-        if (dispBonus) dispBonus.textContent = `${appState.bonusSavingPercent}% DIINVESTASIKAN`;
+        syncWindfallUI();
 
         const sliderSaving = document.getElementById("slider-saving-percent");
         if (sliderSaving) sliderSaving.value = appState.monthlySavingPercent;
@@ -1454,6 +1694,9 @@
           } else {
             appState.rates = Object.assign({}, CLEAN_EMPTY_STATE.rates, appState.rates);
           }
+          if (!appState.windfallTiers) {
+            appState.windfallTiers = { lifestyle: 50, protection: 20, invest: 30 };
+          }
           if (!Array.isArray(appState.incomes)) appState.incomes = [];
           if (!Array.isArray(appState.expenses)) appState.expenses = [];
           if (!Array.isArray(appState.quarterlyBonuses)) appState.quarterlyBonuses = [];
@@ -1467,191 +1710,335 @@
       }
     }
 
-    function ensureChartReady(callback) {
-      if (typeof Chart !== 'undefined') {
-        callback();
-      } else {
-        const checkInterval = setInterval(() => {
-          if (typeof Chart !== 'undefined') {
-            clearInterval(checkInterval);
-            callback();
-          }
-        }, 50);
-        setTimeout(() => clearInterval(checkInterval), 4000);
+    // Windfall Allocation CFP Functions
+    function applyWindfallPreset(presetName) {
+      if (!appState.windfallTiers) {
+        appState.windfallTiers = { lifestyle: 50, protection: 20, invest: 30 };
       }
+      if (presetName === 'seimbang') {
+        appState.windfallTiers = { lifestyle: 50, protection: 20, invest: 30 };
+      } else if (presetName === 'fire') {
+        appState.windfallTiers = { lifestyle: 20, protection: 20, invest: 60 };
+      } else if (presetName === 'konsumtif') {
+        appState.windfallTiers = { lifestyle: 100, protection: 0, invest: 0 };
+      }
+      saveState();
+      syncWindfallUI();
+      renderAll();
+      showToast(`Preset Windfall "${presetName.toUpperCase()}" diterapkan!`);
+      playBeep();
     }
 
-    function switchTab(tabId) {
-      activeTabId = tabId;
-      const views = ['dashboard', 'cashflow', 'debts', 'wealth', 'goals'];
-      views.forEach(v => {
-        const viewEl = document.getElementById(`view-${v}`);
-        const btnEl = document.getElementById(`tab-btn-${v}`);
-        if (!viewEl || !btnEl) return;
-        if (v === tabId) {
-          viewEl.classList.remove("hidden");
-          btnEl.className = "neo-btn px-5 py-3 text-xs uppercase tracking-wider bg-[#ffde59] text-black whitespace-nowrap";
-        } else {
-          viewEl.classList.add("hidden");
-          btnEl.className = "neo-btn px-5 py-3 text-xs uppercase tracking-wider bg-white dark:bg-[#1a1a1e] text-black dark:text-white whitespace-nowrap";
-        }
-      });
-
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          if (tabId === 'wealth') {
-            renderSpikeTimelineChart();
-          } else if (tabId === 'debts') {
-            renderDebtBurndownChart();
-          } else if (tabId === 'goals') {
-            renderGoalSimulation();
-          } else if (tabId === 'dashboard') {
-            renderDashboardDonut();
-          }
-        }, 60);
-      });
-    }
-
-    function toggleTheme() {
-      const isDark = document.documentElement.classList.toggle("dark");
-      const themeText = document.getElementById("theme-text");
-      if (themeText) themeText.textContent = isDark ? "MODE TERANG" : "MODE GELAP";
-      try {
-        localStorage.setItem("finplan_neo_theme", isDark ? "dark" : "light");
-      } catch (e) {}
+    function handleWindfallTierChange(tier, value) {
+      const val = Math.min(100, Math.max(0, parseInt(value, 10) || 0));
+      if (!appState.windfallTiers) {
+        appState.windfallTiers = { lifestyle: 50, protection: 20, invest: 30 };
+      }
+      appState.windfallTiers[tier] = val;
+      saveState();
+      syncWindfallUI();
       renderAll();
     }
 
-    function initTheme() {
-      try {
-        const saved = localStorage.getItem("finplan_neo_theme");
-        const themeText = document.getElementById("theme-text");
-        if (saved === "dark") {
-          document.documentElement.classList.add("dark");
-          if (themeText) themeText.textContent = "MODE TERANG";
+    function syncWindfallUI() {
+      const tiers = appState.windfallTiers || { lifestyle: 50, protection: 20, invest: 30 };
+      const sLife = document.getElementById("slider-tier-lifestyle");
+      const sProt = document.getElementById("slider-tier-protection");
+      const sInv = document.getElementById("slider-tier-invest");
+      const lLife = document.getElementById("label-tier-lifestyle");
+      const lProt = document.getElementById("label-tier-protection");
+      const lInv = document.getElementById("label-tier-invest");
+
+      if (sLife) sLife.value = tiers.lifestyle;
+      if (sProt) sProt.value = tiers.protection;
+      if (sInv) sInv.value = tiers.invest;
+
+      if (lLife) lLife.textContent = `${tiers.lifestyle}%`;
+      if (lProt) lProt.textContent = `${tiers.protection}%`;
+      if (lInv) lInv.textContent = `${tiers.invest}%`;
+
+      const totalPct = tiers.lifestyle + tiers.protection + tiers.invest;
+      const totalPctEl = document.getElementById("windfall-total-percent");
+      const totalStatEl = document.getElementById("windfall-total-status");
+
+      if (totalPctEl) totalPctEl.textContent = `${totalPct}%`;
+      if (totalStatEl) {
+        if (totalPct === 100) {
+          totalStatEl.textContent = "ALOKASI TEPAT (100%)";
+          totalStatEl.className = "neo-badge px-2 py-0.5 bg-[#4ade80] text-black text-[10px]";
+        } else if (totalPct < 100) {
+          totalStatEl.textContent = `MASIH TERSISA ${100 - totalPct}% BELUM DIALOKASIKAN`;
+          totalStatEl.className = "neo-badge px-2 py-0.5 bg-[#ffde59] text-black text-[10px]";
         } else {
-          document.documentElement.classList.remove("dark");
-          if (themeText) themeText.textContent = "MODE GELAP";
+          totalStatEl.textContent = `OVER-BUDGET: LEBIH ${totalPct - 100}%!`;
+          totalStatEl.className = "neo-badge px-2 py-0.5 bg-[#ff6b6b] text-black text-[10px]";
         }
-      } catch (e) {}
+      }
+    }
+
+    // Cashflow CRUD Functions
+    function handleAddIncome(e) {
+      e.preventDefault();
+      const name = document.getElementById("input-income-name").value.trim();
+      const amount = parseRupiahInput(document.getElementById("input-income-amount").value);
+      if (!name || amount <= 0) return;
+      appState.incomes.push({ id: Date.now(), name, amount });
+      document.getElementById("form-add-income").reset();
+      saveState();
+      renderAll();
+      showToast("Pemasukan baru ditambahkan!");
+      playBeep();
+    }
+
+    function deleteIncome(id) {
+      appState.incomes = appState.incomes.filter(i => i.id !== id);
+      saveState();
+      renderAll();
+      showToast("Pemasukan dihapus.");
+      playBeep();
+    }
+
+    function handleAddExpense(e) {
+      e.preventDefault();
+      const name = document.getElementById("input-expense-name").value.trim();
+      const amount = parseRupiahInput(document.getElementById("input-expense-amount").value);
+      if (!name || amount <= 0) return;
+      appState.expenses.push({ id: Date.now(), name, amount });
+      document.getElementById("form-add-expense").reset();
+      saveState();
+      renderAll();
+      showToast("Pengeluaran baru ditambahkan!");
+      playBeep();
+    }
+
+    function deleteExpense(id) {
+      appState.expenses = appState.expenses.filter(e => e.id !== id);
+      saveState();
+      renderAll();
+      showToast("Pengeluaran dihapus.");
+      playBeep();
+    }
+
+    function handleAddQuarterlyBonus(e) {
+      e.preventDefault();
+      const name = document.getElementById("input-quarterly-name").value.trim();
+      const amount = parseRupiahInput(document.getElementById("input-quarterly-amount").value);
+      const interval = parseInt(document.getElementById("input-quarterly-interval").value, 10) || 3;
+      if (!name || amount <= 0) return;
+      if (!appState.quarterlyBonuses) appState.quarterlyBonuses = [];
+      appState.quarterlyBonuses.push({ id: Date.now(), name, amount, interval });
+      document.getElementById("form-add-quarterly").reset();
+      saveState();
+      renderAll();
+      showToast("Bonus berkala ditambahkan!");
+      playBeep();
+    }
+
+    function deleteQuarterlyBonus(id) {
+      appState.quarterlyBonuses = (appState.quarterlyBonuses || []).filter(b => b.id !== id);
+      saveState();
+      renderAll();
+      showToast("Bonus berkala dihapus.");
+      playBeep();
+    }
+
+    function handleAddYearlyBonus(e) {
+      e.preventDefault();
+      const name = document.getElementById("input-yearly-name").value.trim();
+      const amount = parseRupiahInput(document.getElementById("input-yearly-amount").value);
+      if (!name || amount <= 0) return;
+      if (!appState.yearlyBonuses) appState.yearlyBonuses = [];
+      appState.yearlyBonuses.push({ id: Date.now(), name, amount });
+      document.getElementById("form-add-yearly").reset();
+      saveState();
+      renderAll();
+      showToast("THR / Bonus tahunan ditambahkan!");
+      playBeep();
+    }
+
+    function deleteYearlyBonus(id) {
+      appState.yearlyBonuses = (appState.yearlyBonuses || []).filter(b => b.id !== id);
+      saveState();
+      renderAll();
+      showToast("THR / Bonus tahunan dihapus.");
+      playBeep();
     }
 
     function renderCashflowLists() {
-      // Incomes List
-      const incomeContainer = document.getElementById("list-incomes-container");
-      incomeContainer.innerHTML = "";
-      document.getElementById("badge-income-count").textContent = `${appState.incomes.length} Item`;
-
-      if (appState.incomes.length === 0) {
-        incomeContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-500 neo-box bg-[#f4f4f0] dark:bg-zinc-800">Belum ada pemasukan. Tambahkan di atas!</div>`;
-      } else {
-        appState.incomes.forEach(i => {
-          const div = document.createElement("div");
-          div.className = "flex items-center justify-between p-2.5 neo-box bg-white dark:bg-zinc-800 text-xs font-bold";
-          div.innerHTML = `
-            <div>
-              <span class="block">${i.name}</span>
-              <span class="font-mono-nums text-emerald-600 dark:text-emerald-400 font-black">+ ${formatRupiah(i.amount)}</span>
-            </div>
-            <button onclick="deleteIncome(${i.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-[11px]" title="Hapus">✕</button>
-          `;
-          incomeContainer.appendChild(div);
-        });
-      }
-
-      // Expenses List
-      const expenseContainer = document.getElementById("list-expenses-container");
-      expenseContainer.innerHTML = "";
-      document.getElementById("badge-expense-count").textContent = `${appState.expenses.length} Item`;
-
-      if (appState.expenses.length === 0) {
-        expenseContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-500 neo-box bg-[#f4f4f0] dark:bg-zinc-800">Belum ada pengeluaran rutin. Tambahkan di atas!</div>`;
-      } else {
-        appState.expenses.forEach(e => {
-          const div = document.createElement("div");
-          div.className = "flex items-center justify-between p-2.5 neo-box bg-white dark:bg-zinc-800 text-xs font-bold";
-          div.innerHTML = `
-            <div>
-              <span class="block">${e.name}</span>
-              <span class="font-mono-nums text-rose-600 dark:text-rose-400 font-black">- ${formatRupiah(e.amount)}</span>
-            </div>
-            <button onclick="deleteExpense(${e.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-[11px]" title="Hapus">✕</button>
-          `;
-          expenseContainer.appendChild(div);
-        });
-      }
-
-      // Quarterly / Periodic Bonuses
-      const quarterlyContainer = document.getElementById("list-quarterly-container");
-      quarterlyContainer.innerHTML = "";
-      const qBonuses = appState.quarterlyBonuses || [];
-      document.getElementById("badge-quarterly-count").textContent = `${qBonuses.length} Item`;
-
-      if (qBonuses.length === 0) {
-        quarterlyContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-500 neo-box bg-[#f4f4f0] dark:bg-zinc-800">Belum ada bonus berkala.</div>`;
-      } else {
-        qBonuses.forEach(b => {
-          const itemInterval = b.interval || 3;
-          const div = document.createElement("div");
-          div.className = "flex items-center justify-between p-2.5 neo-box bg-white dark:bg-zinc-800 text-xs font-bold";
-          div.innerHTML = `
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="block">${b.name}</span>
-                <span class="neo-badge px-1.5 py-0.2 bg-[#38bdf8] text-black text-[9px] font-mono-nums">TIAP ${itemInterval} BLN</span>
+      // Incomes
+      const incContainer = document.getElementById("list-incomes-container");
+      const incBadge = document.getElementById("badge-income-count");
+      if (incContainer) {
+        incContainer.innerHTML = "";
+        if (incBadge) incBadge.textContent = `${appState.incomes.length} Item`;
+        if (appState.incomes.length === 0) {
+          incContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-400">Belum ada pemasukan rutin.</div>`;
+        } else {
+          appState.incomes.forEach(i => {
+            const item = document.createElement("div");
+            item.className = "flex items-center justify-between p-2.5 neo-box bg-[#f4f4f0] dark:bg-zinc-800 text-xs font-bold";
+            item.innerHTML = `
+              <div>
+                <span class="block text-black dark:text-white font-black">${i.name}</span>
+                <span class="text-[11px] font-mono-nums text-emerald-600 dark:text-emerald-400 font-bold">${formatRupiah(i.amount)}/bln</span>
               </div>
-              <span class="font-mono-nums text-sky-600 dark:text-sky-400 font-black">+ ${formatRupiah(b.amount)} / ${itemInterval} bln</span>
-            </div>
-            <button onclick="deleteQuarterlyBonus(${b.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-[11px]" title="Hapus">✕</button>
-          `;
-          quarterlyContainer.appendChild(div);
-        });
+              <button onclick="deleteIncome(${i.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-xs font-mono-nums" title="Hapus">✕</button>
+            `;
+            incContainer.appendChild(item);
+          });
+        }
       }
 
-      // Yearly Bonuses
-      const yearlyContainer = document.getElementById("list-yearly-container");
-      yearlyContainer.innerHTML = "";
-      const yBonuses = appState.yearlyBonuses || [];
-      document.getElementById("badge-yearly-count").textContent = `${yBonuses.length} Item`;
-
-      if (yBonuses.length === 0) {
-        yearlyContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-500 neo-box bg-[#f4f4f0] dark:bg-zinc-800">Belum ada THR/bonus tahunan.</div>`;
-      } else {
-        yBonuses.forEach(b => {
-          const div = document.createElement("div");
-          div.className = "flex items-center justify-between p-2.5 neo-box bg-white dark:bg-zinc-800 text-xs font-bold";
-          div.innerHTML = `
-            <div>
-              <span class="block">${b.name}</span>
-              <span class="font-mono-nums text-purple-600 dark:text-purple-400 font-black">+ ${formatRupiah(b.amount)} / 12 bln</span>
-            </div>
-            <button onclick="deleteYearlyBonus(${b.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-[11px]" title="Hapus">✕</button>
-          `;
-          yearlyContainer.appendChild(div);
-        });
+      // Expenses
+      const expContainer = document.getElementById("list-expenses-container");
+      const expBadge = document.getElementById("badge-expense-count");
+      if (expContainer) {
+        expContainer.innerHTML = "";
+        if (expBadge) expBadge.textContent = `${appState.expenses.length} Item`;
+        if (appState.expenses.length === 0) {
+          expContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-400">Belum ada pengeluaran rutin.</div>`;
+        } else {
+          appState.expenses.forEach(e => {
+            const item = document.createElement("div");
+            item.className = "flex items-center justify-between p-2.5 neo-box bg-[#f4f4f0] dark:bg-zinc-800 text-xs font-bold";
+            item.innerHTML = `
+              <div>
+                <span class="block text-black dark:text-white font-black">${e.name}</span>
+                <span class="text-[11px] font-mono-nums text-rose-600 dark:text-rose-400 font-bold">${formatRupiah(e.amount)}/bln</span>
+              </div>
+              <button onclick="deleteExpense(${e.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-xs font-mono-nums" title="Hapus">✕</button>
+            `;
+            expContainer.appendChild(item);
+          });
+        }
       }
+
+      // Quarterly bonuses
+      const qContainer = document.getElementById("list-quarterly-container");
+      const qBadge = document.getElementById("badge-quarterly-count");
+      if (qContainer) {
+        qContainer.innerHTML = "";
+        const list = appState.quarterlyBonuses || [];
+        if (qBadge) qBadge.textContent = `${list.length} Item`;
+        if (list.length === 0) {
+          qContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-400">Belum ada bonus berkala.</div>`;
+        } else {
+          list.forEach(b => {
+            const interval = b.interval || 3;
+            const item = document.createElement("div");
+            item.className = "flex items-center justify-between p-2.5 neo-box bg-[#f4f4f0] dark:bg-zinc-800 text-xs font-bold";
+            item.innerHTML = `
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-black dark:text-white font-black">${b.name}</span>
+                  <span class="neo-badge px-1.5 py-0.2 bg-[#38bdf8] text-black text-[9px] font-mono-nums">Tiap ${interval} Bln</span>
+                </div>
+                <span class="text-[11px] font-mono-nums text-sky-600 dark:text-sky-400 font-bold">${formatRupiah(b.amount)} / pencairan</span>
+              </div>
+              <button onclick="deleteQuarterlyBonus(${b.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-xs font-mono-nums" title="Hapus">✕</button>
+            `;
+            qContainer.appendChild(item);
+          });
+        }
+      }
+
+      // Yearly bonuses
+      const yContainer = document.getElementById("list-yearly-container");
+      const yBadge = document.getElementById("badge-yearly-count");
+      if (yContainer) {
+        yContainer.innerHTML = "";
+        const list = appState.yearlyBonuses || [];
+        if (yBadge) yBadge.textContent = `${list.length} Item`;
+        if (list.length === 0) {
+          yContainer.innerHTML = `<div class="p-3 text-center text-xs font-bold text-zinc-400">Belum ada THR / bonus tahunan.</div>`;
+        } else {
+          list.forEach(yb => {
+            const item = document.createElement("div");
+            item.className = "flex items-center justify-between p-2.5 neo-box bg-[#f4f4f0] dark:bg-zinc-800 text-xs font-bold";
+            item.innerHTML = `
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-black dark:text-white font-black">${yb.name}</span>
+                  <span class="neo-badge px-1.5 py-0.2 bg-[#c084fc] text-black text-[9px] font-mono-nums">Tiap 12 Bln</span>
+                </div>
+                <span class="text-[11px] font-mono-nums text-purple-600 dark:text-purple-400 font-bold">${formatRupiah(yb.amount)} / tahun</span>
+              </div>
+              <button onclick="deleteYearlyBonus(${yb.id})" class="neo-btn px-2 py-1 bg-[#ff6b6b] text-black text-xs font-mono-nums" title="Hapus">✕</button>
+            `;
+            yContainer.appendChild(item);
+          });
+        }
+      }
+    }
+
+    // Debt Portfolio Functions
+    function handleAddDebt(e) {
+      e.preventDefault();
+      const name = document.getElementById("input-debt-name").value.trim();
+      const principal = parseRupiahInput(document.getElementById("input-debt-principal").value);
+      const payment = parseRupiahInput(document.getElementById("input-debt-payment").value);
+      const startDate = document.getElementById("input-debt-start").value;
+      const endDate = document.getElementById("input-debt-end").value;
+
+      if (!name || principal <= 0 || payment <= 0) {
+        showToast("Mohon lengkapi data hutang dengan benar.", false);
+        return;
+      }
+
+      appState.debts.push({
+        id: Date.now(),
+        name,
+        principal,
+        monthlyPayment: payment,
+        startDate: startDate || new Date().toISOString().split("T")[0],
+        endDate: endDate || new Date().toISOString().split("T")[0],
+        paidCount: 0
+      });
+
+      document.getElementById("form-add-debt").reset();
+      const startEl = document.getElementById("input-debt-start");
+      const endEl = document.getElementById("input-debt-end");
+      if (startEl) startEl.value = new Date().toISOString().split("T")[0];
+      if (endEl) {
+        const nextY = new Date();
+        nextY.setFullYear(nextY.getFullYear() + 1);
+        endEl.value = nextY.toISOString().split("T")[0];
+      }
+
+      saveState();
+      renderAll();
+      showToast(`Akun hutang "${name}" berhasil disimpan!`);
+      playBeep();
+    }
+
+    function deleteDebt(id) {
+      openModal("Hapus Hutang", "Hapus akun hutang ini dari daftar?", () => {
+        appState.debts = appState.debts.filter(d => d.id !== id);
+        saveState();
+        renderAll();
+        showToast("Akun hutang dihapus.");
+        playBeep();
+      });
     }
 
     function handlePayMonth(id) {
       const debt = appState.debts.find(d => d.id === id);
       if (!debt) return;
 
-      const totalPaymentsNeeded = debt.monthlyPayment > 0 ? Math.ceil(debt.principal / debt.monthlyPayment) : 0;
-      const currentPaid = typeof debt.paidCount === "number" ? debt.paidCount : 0;
+      const totalNeeded = debt.monthlyPayment > 0 ? Math.ceil(debt.principal / debt.monthlyPayment) : 0;
+      debt.paidCount = (typeof debt.paidCount === "number" ? debt.paidCount : 0) + 1;
 
-      if (currentPaid < totalPaymentsNeeded) {
-        debt.paidCount = currentPaid + 1;
-        saveState();
-        renderAll();
-
-        if (debt.paidCount >= totalPaymentsNeeded) {
-          playBeep('lunas');
-          showToast(`SELAMAT! ${debt.name} RESMI LUNAS 100%!`);
-        } else {
-          playBeep('pay');
-          showToast(`Pembayaran ke-${debt.paidCount} untuk ${debt.name} tercatat!`);
-        }
+      if (debt.paidCount >= totalNeeded) {
+        debt.paidCount = totalNeeded;
+        showToast(`LUNAS! Hutang ${debt.name} telah terbayar 100%!`);
+        playBeep('lunas');
+      } else {
+        showToast(`Pembayaran ke-${debt.paidCount} untuk ${debt.name} dicatat!`);
+        playBeep('pay');
       }
+
+      saveState();
+      renderAll();
     }
 
     function handleUndoPayMonth(id) {
@@ -1669,12 +2056,15 @@
 
     function renderDebtPortfolio() {
       const container = document.getElementById("debt-cards-container");
+      if (!container) return;
       container.innerHTML = "";
 
       let totalOriginalPrincipal = 0;
       let totalCurrentRemainingPrincipal = 0;
       let totalCurrentMonthlyPayment = 0;
       let maxRemainingMonths = 0;
+
+      const activeDebtsPayoffList = [];
 
       (appState.debts || []).forEach(d => {
         const totalPaymentsNeeded = d.monthlyPayment > 0 ? Math.ceil(d.principal / d.monthlyPayment) : 0;
@@ -1690,15 +2080,27 @@
           if (remainingCount > maxRemainingMonths) {
             maxRemainingMonths = remainingCount;
           }
+          activeDebtsPayoffList.push({
+            id: d.id,
+            name: d.name,
+            monthlyPayment: d.monthlyPayment,
+            remainingMonths: remainingCount,
+            principalLeft: remainingPrincipal
+          });
         }
       });
 
+      activeDebtsPayoffList.sort((a, b) => a.remainingMonths - b.remainingMonths);
+
       const totalIncome = (appState.incomes || []).reduce((acc, i) => acc + i.amount, 0);
+      const totalExpense = (appState.expenses || []).reduce((acc, e) => acc + e.amount, 0);
+      const currentSurplus = totalIncome - (totalExpense + totalCurrentMonthlyPayment);
+      const postDebtPayoffSurplus = totalIncome - totalExpense;
+
       const totalPaidPrincipal = Math.max(0, totalOriginalPrincipal - totalCurrentRemainingPrincipal);
       const payoffPct = totalOriginalPrincipal > 0 ? (totalPaidPrincipal / totalOriginalPrincipal) * 100 : (appState.debts.length === 0 ? 100 : 0);
       const debtBurdenRatio = totalIncome > 0 ? (totalCurrentMonthlyPayment / totalIncome) * 100 : 0;
 
-      // Update Top Debt Freedom Banner Metrics
       document.getElementById("stat-current-total-debt").textContent = formatRupiah(totalCurrentRemainingPrincipal);
       document.getElementById("stat-original-total-debt").textContent = formatRupiah(totalOriginalPrincipal);
       document.getElementById("stat-debt-payoff-percent").textContent = `${payoffPct.toFixed(1)}%`;
@@ -1708,45 +2110,39 @@
       document.getElementById("stat-debt-burden-ratio").textContent = `${debtBurdenRatio.toFixed(1)}%`;
       document.getElementById("burndown-speed-badge").textContent = `Kecepatan: ${formatRupiah(totalCurrentMonthlyPayment)}/bln`;
 
-      if (appState.debts.length === 0 || totalCurrentRemainingPrincipal === 0) {
+      const now = new Date();
+      now.setDate(1);
+
+      let finalPayoffDateStr = "BEBAS HUTANG";
+      if (maxRemainingMonths > 0) {
+        const finalDate = new Date(now.getFullYear(), now.getMonth() + maxRemainingMonths, 1);
+        finalPayoffDateStr = formatMonthYear(finalDate);
+      }
+
+      if (appState.debts.length === 0 || totalCurrentRemainingPrincipal === 0 || maxRemainingMonths === 0) {
         document.getElementById("stat-debt-freedom-date").textContent = "BEBAS HUTANG";
         document.getElementById("stat-debt-freedom-remaining").textContent = "0 BULAN LAGI";
         document.getElementById("stat-debt-freedom-headline").textContent = "BEBAS HUTANG";
         document.getElementById("stat-debt-freedom-subtext").textContent = "Tidak ada sisa cicilan aktif. Seluruh kas bebas siap diinvestasikan!";
       } else {
-        const freedomDate = new Date();
-        freedomDate.setMonth(freedomDate.getMonth() + maxRemainingMonths);
-        const dateStr = formatMonthYear(freedomDate);
-        document.getElementById("stat-debt-freedom-date").textContent = dateStr;
+        document.getElementById("stat-debt-freedom-date").textContent = finalPayoffDateStr;
         document.getElementById("stat-debt-freedom-remaining").textContent = `${maxRemainingMonths} BULAN LAGI`;
-        document.getElementById("stat-debt-freedom-headline").textContent = dateStr;
+        document.getElementById("stat-debt-freedom-headline").textContent = finalPayoffDateStr;
         document.getElementById("stat-debt-freedom-subtext").textContent = `Masih tersisa ${maxRemainingMonths} bulan angsuran hingga bebas hutang total.`;
       }
 
-      // Proyeksi Kas Bersih Pasca Hutang Lunas Calculations
-      const totalExpense = (appState.expenses || []).reduce((acc, e) => acc + e.amount, 0);
-      const currentSurplus = totalIncome - (totalExpense + totalCurrentMonthlyPayment);
-      const postDebtPayoffSurplus = totalIncome - totalExpense;
-
+      // Explicit Statements & Stepped Progression
+      const explicitTab1El = document.getElementById("stat-post-debt-explicit-statement");
       const postCashflowEl = document.getElementById("stat-post-debt-free-cashflow");
-      const postBreakdownEl = document.getElementById("stat-post-debt-breakdown");
-      const bannerStatusEl = document.getElementById("stat-post-debt-banner-status");
       const bannerValEl = document.getElementById("stat-post-debt-banner-val");
+      const bannerStatementEl = document.getElementById("stat-post-debt-banner-statement");
       const bannerCurrentSurplusEl = document.getElementById("stat-banner-current-surplus");
       const bannerFreedPaymentsEl = document.getElementById("stat-banner-freed-payments");
+      const steppedRecoveryContainer = document.getElementById("timeline-stepped-cashflow-recovery");
 
       if (postCashflowEl) {
         postCashflowEl.textContent = `${formatRupiah(Math.max(0, postDebtPayoffSurplus))}/bln`;
       }
-
-      if (postBreakdownEl) {
-        if (totalCurrentMonthlyPayment > 0) {
-          postBreakdownEl.textContent = `Surplus saat ini: ${formatRupiah(currentSurplus)} + Bebas cicilan: ${formatRupiah(totalCurrentMonthlyPayment)}`;
-        } else {
-          postBreakdownEl.textContent = `Seluruh cicilan telah tuntas. Kapasitas surplus saat ini sudah maksimal.`;
-        }
-      }
-
       if (bannerValEl) {
         bannerValEl.textContent = `${formatRupiah(Math.max(0, postDebtPayoffSurplus))}/bln`;
       }
@@ -1757,11 +2153,61 @@
         bannerFreedPaymentsEl.textContent = `+ ${formatRupiah(totalCurrentMonthlyPayment)}/bln`;
       }
 
-      if (bannerStatusEl) {
-        if (appState.debts.length === 0 || totalCurrentRemainingPrincipal === 0 || totalCurrentMonthlyPayment === 0) {
-          bannerStatusEl.textContent = "Tidak ada sisa cicilan aktif. Seluruh kas bebas siap diinvestasikan!";
+      if (totalCurrentMonthlyPayment > 0 && maxRemainingMonths > 0) {
+        const statementText = `Pada <u>${finalPayoffDateStr}</u> (M+${maxRemainingMonths}), seluruh hutang lunas. Sisa kas bersih bulanan akan melonjak dari <b>${formatRupiah(currentSurplus)}</b> menjadi <b>${formatRupiah(postDebtPayoffSurplus)}</b> (+<b>${formatRupiah(totalCurrentMonthlyPayment)}</b>/bulan yang kembali ke kas bebas)!`;
+
+        if (explicitTab1El) {
+          explicitTab1El.innerHTML = statementText;
+          explicitTab1El.className = "p-2.5 neo-box bg-[#ffde59] text-black text-[11px] font-bold leading-relaxed";
+        }
+        if (bannerStatementEl) {
+          bannerStatementEl.innerHTML = statementText;
+          bannerStatementEl.className = "p-3 border-2 border-black neo-box bg-[#ffde59] text-black text-xs font-bold leading-relaxed";
+        }
+      } else {
+        const noDebtText = "Tidak ada sisa cicilan aktif. Seluruh sisa kas bersih bulanan Anda sudah berada di kapasitas maksimal tanpa potongan hutang.";
+        if (explicitTab1El) {
+          explicitTab1El.innerHTML = noDebtText;
+          explicitTab1El.className = "p-2.5 neo-box bg-[#f4f4f0] dark:bg-zinc-800 text-black dark:text-white text-[11px] font-bold leading-relaxed";
+        }
+        if (bannerStatementEl) {
+          bannerStatementEl.innerHTML = noDebtText;
+          bannerStatementEl.className = "p-3 border-2 border-black neo-box bg-[#4ade80] text-black text-xs font-bold leading-relaxed";
+        }
+      }
+
+      // Stepped Progression Schedule
+      if (steppedRecoveryContainer) {
+        steppedRecoveryContainer.innerHTML = "";
+        if (activeDebtsPayoffList.length === 0) {
+          steppedRecoveryContainer.innerHTML = `
+            <div class="p-2 neo-box bg-white text-black text-[11px] font-bold text-center">
+              Tidak ada cicilan yang berjalan. Seluruh kas bersih Anda telah bebas 100%!
+            </div>
+          `;
         } else {
-          bannerStatusEl.textContent = `Setelah seluruh cicilan lunas, anggaran cicilan ${formatRupiah(totalCurrentMonthlyPayment)}/bln akan langsung dialihkan menambah surplus bersih Anda!`;
+          let runningFreed = 0;
+          activeDebtsPayoffList.forEach((item) => {
+            runningFreed += item.monthlyPayment;
+            const targetDate = new Date(now.getFullYear(), now.getMonth() + item.remainingMonths, 1);
+            const dateStr = formatMonthYear(targetDate);
+            const projectedSurplusAtStep = currentSurplus + runningFreed;
+
+            const div = document.createElement("div");
+            div.className = "p-2 neo-box bg-white text-black text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 font-mono-nums";
+            div.innerHTML = `
+              <div>
+                <span class="neo-badge px-1.5 py-0.2 bg-[#38bdf8] text-black text-[9px] font-black uppercase">M+${item.remainingMonths} (${dateStr})</span>
+                <span class="font-black text-black ml-1.5">${item.name} LUNAS</span>
+              </div>
+              <div class="text-right sm:text-right">
+                <span class="text-[10px] text-zinc-600 block sm:inline">Kas Bebas:</span>
+                <strong class="text-emerald-700 font-black">+${formatRupiah(item.monthlyPayment)}/bln</strong>
+                <span class="text-[11px] font-bold text-zinc-800 ml-1">→ Kas Bersih Menjadi: <b>${formatRupiah(projectedSurplusAtStep)}/bln</b></span>
+              </div>
+            `;
+            steppedRecoveryContainer.appendChild(div);
+          });
         }
       }
 
@@ -2008,6 +2454,7 @@
       });
     }
 
+    // Donut Chart
     function renderDashboardDonut() {
       const totalIncome = (appState.incomes || []).reduce((a, b) => a + b.amount, 0);
       const totalExpense = (appState.expenses || []).reduce((a, b) => a + b.amount, 0);
@@ -2094,9 +2541,10 @@
       });
     }
 
+    // Multi-Asset Spike Simulator Chart
     function renderSpikeTimelineChart() {
       const ctx = document.getElementById("spikeTimelineChart");
-      if (!ctx) return;
+      if (!ctx || typeof Chart === 'undefined') return;
 
       const totalIncome = (appState.incomes || []).reduce((acc, i) => acc + i.amount, 0);
       const totalExpense = (appState.expenses || []).reduce((acc, e) => acc + e.amount, 0);
@@ -2111,7 +2559,11 @@
       const rDeposito = (Number(rates.deposito) || 4.5) / 100 / 12;
 
       const monthlySavingPct = (appState.monthlySavingPercent !== undefined ? appState.monthlySavingPercent : 50) / 100;
-      const bonusSavingPct = (appState.bonusSavingPercent || 80) / 100;
+      
+      const tiers = appState.windfallTiers || { lifestyle: 50, protection: 20, invest: 30 };
+      const windfallInvestPct = (tiers.invest || 0) / 100;
+      const windfallProtectionPct = (tiers.protection || 0) / 100;
+
       const efAllocPct = (appState.emergencyFundAllocPercent !== undefined ? appState.emergencyFundAllocPercent : 30) / 100;
       const efTargetMonths = appState.emergencyFundMonthsTarget || 6;
 
@@ -2171,20 +2623,29 @@
         const surplusAfterEF = Math.max(0, surplus - efDeposit);
         let investDeposit = surplusAfterEF * monthlySavingPct;
 
+        let windfallThisMonth = 0;
         if (appState.quarterlyBonuses && appState.quarterlyBonuses.length > 0) {
           appState.quarterlyBonuses.forEach(b => {
             const interval = b.interval || 3;
             if (m % interval === 0) {
-              investDeposit += b.amount * bonusSavingPct;
+              windfallThisMonth += b.amount;
             }
           });
         }
         if (appState.yearlyBonuses && appState.yearlyBonuses.length > 0) {
           if (m % 12 === 0) {
             appState.yearlyBonuses.forEach(yb => {
-              investDeposit += yb.amount * bonusSavingPct;
+              windfallThisMonth += yb.amount;
             });
           }
+        }
+
+        if (windfallThisMonth > 0) {
+          if (simulatedEFCurrent < efTarget && windfallProtectionPct > 0) {
+            const protectionInjection = windfallThisMonth * windfallProtectionPct;
+            simulatedEFCurrent += protectionInjection;
+          }
+          investDeposit += windfallThisMonth * windfallInvestPct;
         }
 
         monthlyDepositsAll.push(investDeposit);
@@ -2218,7 +2679,7 @@
       renderFutureValueMatrix(monthlyDepositsAll);
 
       const viewWealth = document.getElementById("view-wealth");
-      if ((viewWealth && viewWealth.classList.contains("hidden")) || typeof Chart === 'undefined') return;
+      if ((viewWealth && viewWealth.classList.contains("hidden"))) return;
 
       const isDark = document.documentElement.classList.contains("dark");
       const gridColor = isDark ? "rgba(255, 255, 255, 0.15)" : "rgba(0, 0, 0, 0.12)";
@@ -2412,6 +2873,7 @@
       renderSpikeTimelineChart();
     }
 
+    // Tab 5: Goal Planning Functions
     function handleApplyPlannedGoal(e) {
       e.preventDefault();
       const name = document.getElementById("input-planned-goal-name").value.trim();
@@ -2467,7 +2929,6 @@
       const initialEFDeposit = (surplusInitial > 0 && simulatedEF < emergencyTarget) ? surplusInitial * efAllocPct : 0;
       const surplusAfterEFInitial = Math.max(0, surplusInitial - initialEFDeposit);
 
-      // Warning banner if surplus is 0
       const zeroBanner = document.getElementById("goal-zero-cashflow-banner");
       if (zeroBanner) {
         if (surplusAfterEFInitial <= 0) {
@@ -2477,7 +2938,6 @@
         }
       }
 
-      // Recommended monthly deposit
       const recommendedMonthly = surplusAfterEFInitial > 0 
         ? Math.max(50000, Math.round((surplusAfterEFInitial * 0.7) / 50000) * 50000)
         : 0;
@@ -2502,7 +2962,6 @@
         }
       }
 
-      // Update emergency fund details in cards
       const efDepositDetail = document.getElementById("stat-detail-ef-deposit");
       if (efDepositDetail) efDepositDetail.textContent = `${formatRupiah(initialEFDeposit)}/bln`;
       const efStatusDetail = document.getElementById("stat-detail-ef-status");
@@ -2529,6 +2988,10 @@
       const now = new Date();
       now.setDate(1);
 
+      const tiersGoal = appState.windfallTiers || { lifestyle: 50, protection: 20, invest: 30 };
+      const windfallGoalInvestPct = (tiersGoal.invest || 0) / 100;
+      const windfallGoalProtPct = (tiersGoal.protection || 0) / 100;
+
       if (targetAmount > 0 && recommendedMonthly > 0) {
         const maxSimMonths = 120;
         for (let m = 1; m <= maxSimMonths; m++) {
@@ -2545,12 +3008,36 @@
           if (simulatedEF < currentEFTarget && currentSurplus > 0) {
             currentEFDeposit = currentSurplus * efAllocPct;
           }
+
+          let windfallThisMonth = 0;
+          if (appState.quarterlyBonuses && appState.quarterlyBonuses.length > 0) {
+            appState.quarterlyBonuses.forEach(b => {
+              const interval = b.interval || 3;
+              if (m % interval === 0) windfallThisMonth += b.amount;
+            });
+          }
+          if (appState.yearlyBonuses && appState.yearlyBonuses.length > 0) {
+            if (m % 12 === 0) {
+              appState.yearlyBonuses.forEach(yb => {
+                windfallThisMonth += yb.amount;
+              });
+            }
+          }
+
+          if (windfallThisMonth > 0 && simulatedEF < currentEFTarget) {
+            currentEFDeposit += windfallThisMonth * windfallGoalProtPct;
+          }
+
           simulatedEF = (simulatedEF + currentEFDeposit) * (1 + rEF);
 
           const surplusAfterEF = Math.max(0, currentSurplus - currentEFDeposit);
-          const monthlyDepositToGoal = surplusAfterEF > 0 
+          let monthlyDepositToGoal = surplusAfterEF > 0 
             ? Math.min(surplusAfterEF, recommendedMonthly) 
             : recommendedMonthly;
+
+          if (windfallThisMonth > 0) {
+            monthlyDepositToGoal += windfallThisMonth * windfallGoalInvestPct;
+          }
 
           balFlat += monthlyDepositToGoal;
           balGrowth = (balGrowth + monthlyDepositToGoal) * (1 + monthlyRate);
@@ -2578,7 +3065,6 @@
           }
         }
       } else {
-        // Zero or empty state line preview (12 months flat)
         for (let m = 1; m <= 12; m++) {
           const d = new Date(now.getFullYear(), now.getMonth() + m, 1);
           labels.push(`M+${m} (${formatMonthYear(d)})`);
@@ -2603,7 +3089,6 @@
       const buyDateGrowth = new Date(now.getFullYear(), now.getMonth() + monthsGrowth, 1);
       const buyDateFlat = new Date(now.getFullYear(), now.getMonth() + monthsFlat, 1);
 
-      // Update KPI metrics
       const buyDateEl = document.getElementById("stat-goal-estimated-buy-date");
       if (buyDateEl) {
         if (targetAmount > 0 && recommendedMonthly > 0) {
@@ -2621,7 +3106,7 @@
       const moneySavedEl = document.getElementById("stat-goal-money-saved");
       if (moneySavedEl) {
         moneySavedEl.textContent = moneySaved > 0 
-          ? `Hemat modal Rp ${formatRupiah(moneySaved)} berkat imbal hasil.` 
+          ? `Hemat modal ${formatRupiah(moneySaved)} berkat imbal hasil.` 
           : "Hemat modal berkat bunga majemuk.";
       }
 
@@ -2635,7 +3120,6 @@
       const growthDateEl = document.getElementById("stat-detail-growth-date");
       if (growthDateEl) growthDateEl.textContent = monthsGrowth > 0 ? formatMonthYear(buyDateGrowth) : "-";
 
-      // Render Chart
       const ctx = document.getElementById("goalSimulationChart");
       const viewGoals = document.getElementById("view-goals");
       if (!ctx || !viewGoals || viewGoals.classList.contains("hidden") || typeof Chart === 'undefined') return;
@@ -2743,6 +3227,7 @@
       });
     }
 
+    // Emergency Fund Handlers
     function setEmergencyMonthsTarget(months) {
       const parsed = parseInt(months, 10) || 6;
       appState.emergencyFundMonthsTarget = parsed;
@@ -2773,15 +3258,6 @@
       renderAll();
     }
 
-    function handleBonusPercentChange(val) {
-      const pct = Math.min(100, Math.max(0, parseInt(val, 10) || 0));
-      appState.bonusSavingPercent = pct;
-      const display = document.getElementById("display-bonus-saving-percent");
-      if (display) display.textContent = `${pct}% DIINVESTASIKAN`;
-      saveState();
-      renderSpikeTimelineChart();
-    }
-
     function handleSavingPercentChange(val) {
       const pct = Math.min(100, Math.max(0, parseInt(val, 10) || 0));
       appState.monthlySavingPercent = pct;
@@ -2791,194 +3267,7 @@
       renderSpikeTimelineChart();
     }
 
-    function handleAddIncome(e) {
-      e.preventDefault();
-      const name = document.getElementById("input-income-name").value.trim();
-      const amount = parseRupiahInput(document.getElementById("input-income-amount").value);
-      if (!name || amount <= 0) return;
-      appState.incomes.push({ id: Date.now(), name, amount });
-      document.getElementById("form-add-income").reset();
-      saveState();
-      renderAll();
-      showToast("Pemasukan baru ditambahkan!");
-      playBeep();
-    }
-
-    function deleteIncome(id) {
-      appState.incomes = appState.incomes.filter(i => i.id !== id);
-      saveState();
-      renderAll();
-      showToast("Pemasukan dihapus.");
-      playBeep();
-    }
-
-    function handleAddExpense(e) {
-      e.preventDefault();
-      const name = document.getElementById("input-expense-name").value.trim();
-      const amount = parseRupiahInput(document.getElementById("input-expense-amount").value);
-      if (!name || amount <= 0) return;
-      appState.expenses.push({ id: Date.now(), name, amount });
-      document.getElementById("form-add-expense").reset();
-      saveState();
-      renderAll();
-      showToast("Pengeluaran baru ditambahkan!");
-      playBeep();
-    }
-
-    function deleteExpense(id) {
-      appState.expenses = appState.expenses.filter(e => e.id !== id);
-      saveState();
-      renderAll();
-      showToast("Pengeluaran dihapus.");
-      playBeep();
-    }
-
-    function handleAddQuarterlyBonus(e) {
-      e.preventDefault();
-      const name = document.getElementById("input-quarterly-name").value.trim();
-      const amount = parseRupiahInput(document.getElementById("input-quarterly-amount").value);
-      const interval = parseInt(document.getElementById("input-quarterly-interval").value, 10) || 3;
-      if (!name || amount <= 0) return;
-      if (!appState.quarterlyBonuses) appState.quarterlyBonuses = [];
-      appState.quarterlyBonuses.push({ id: Date.now(), name, amount, interval });
-      document.getElementById("form-add-quarterly").reset();
-      saveState();
-      renderAll();
-      showToast("Bonus berkala ditambahkan!");
-      playBeep();
-    }
-
-    function deleteQuarterlyBonus(id) {
-      appState.quarterlyBonuses = (appState.quarterlyBonuses || []).filter(b => b.id !== id);
-      saveState();
-      renderAll();
-      showToast("Bonus berkala dihapus.");
-      playBeep();
-    }
-
-    function handleAddYearlyBonus(e) {
-      e.preventDefault();
-      const name = document.getElementById("input-yearly-name").value.trim();
-      const amount = parseRupiahInput(document.getElementById("input-yearly-amount").value);
-      if (!name || amount <= 0) return;
-      if (!appState.yearlyBonuses) appState.yearlyBonuses = [];
-      appState.yearlyBonuses.push({ id: Date.now(), name, amount });
-      document.getElementById("form-add-yearly").reset();
-      saveState();
-      renderAll();
-      showToast("THR / Bonus tahunan ditambahkan!");
-      playBeep();
-    }
-
-    function deleteYearlyBonus(id) {
-      appState.yearlyBonuses = (appState.yearlyBonuses || []).filter(b => b.id !== id);
-      saveState();
-      renderAll();
-      showToast("THR / Bonus tahunan dihapus.");
-      playBeep();
-    }
-
-    function handleAddDebt(e) {
-      e.preventDefault();
-      const name = document.getElementById("input-debt-name").value.trim();
-      const principal = parseRupiahInput(document.getElementById("input-debt-principal").value);
-      const monthlyPayment = parseRupiahInput(document.getElementById("input-debt-payment").value);
-      const startDate = document.getElementById("input-debt-start").value;
-      const endDate = document.getElementById("input-debt-end").value;
-      if (!name || principal <= 0 || monthlyPayment <= 0) return;
-
-      appState.debts.push({
-        id: Date.now(),
-        name,
-        principal,
-        monthlyPayment,
-        startDate,
-        endDate,
-        paidCount: 0
-      });
-      document.getElementById("form-add-debt").reset();
-      saveState();
-      renderAll();
-      showToast("Akun hutang baru berhasil disimpan!");
-      playBeep();
-    }
-
-    function deleteDebt(id) {
-      openModal(
-        "Hapus Akun Hutang",
-        "Apakah Anda yakin ingin menghapus data hutang ini?",
-        () => {
-          appState.debts = appState.debts.filter(d => d.id !== id);
-          saveState();
-          renderAll();
-          showToast("Akun hutang dihapus.");
-          playBeep();
-        }
-      );
-    }
-
-    function showResetConfirmation() {
-      openModal(
-        "Reset Semua Data ke 0",
-        "Tindakan ini akan mengosongkan seluruh daftar pemasukan, pengeluaran, hutang, bonus, dan rencana tabungan menjadi Rp 0. Apakah Anda ingin mengosongkan semua data?",
-        () => {
-          appState = JSON.parse(JSON.stringify(CLEAN_EMPTY_STATE));
-          saveState();
-          try {
-            localStorage.removeItem("finplan_neo_state");
-          } catch(e) {}
-          
-          // Reset form fields
-          const goalName = document.getElementById("input-planned-goal-name");
-          const goalAmt = document.getElementById("input-planned-goal-amount");
-          if (goalName) goalName.value = "";
-          if (goalAmt) goalAmt.value = "";
-
-          const efInput = document.getElementById("input-ef-current");
-          if (efInput) efInput.value = "Rp 0";
-
-          renderAll();
-          showToast("Seluruh data berhasil dibersihkan ke Rp 0.");
-          playBeep();
-        }
-      );
-    }
-
-    function exportDataJSON() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
-      const dlAnchor = document.createElement("a");
-      dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", `FinPlan_Backup_${new Date().toISOString().split("T")[0]}.json`);
-      document.body.appendChild(dlAnchor);
-      dlAnchor.click();
-      dlAnchor.remove();
-      showToast("Data cadangan berhasil diunduh!");
-      playBeep();
-    }
-
-    function handleImportFile(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (imported && Array.isArray(imported.incomes)) {
-            appState = Object.assign({}, CLEAN_EMPTY_STATE, imported);
-            saveState();
-            renderAll();
-            showToast("Data backup berhasil dipulihkan!");
-            playBeep();
-          } else {
-            showToast("Format file JSON tidak valid.", false);
-          }
-        } catch (err) {
-          showToast("Gagal membaca file backup.", false);
-        }
-      };
-      reader.readAsText(file);
-    }
-
+    // Master Render Function
     function renderAll() {
       const totalIncome = (appState.incomes || []).reduce((a, b) => a + b.amount, 0);
       const totalExpense = (appState.expenses || []).reduce((a, b) => a + b.amount, 0);
@@ -2995,6 +3284,40 @@
       const totalOutflow = totalExpense + totalMonthlyDebt;
       const surplus = totalIncome - totalOutflow;
 
+      // Calculate Total Annual Windfall (Bonuses + THR)
+      let annualWindfallTotal = 0;
+      (appState.quarterlyBonuses || []).forEach(b => {
+        const interval = b.interval || 3;
+        const occurrencesPerYear = Math.floor(12 / interval);
+        annualWindfallTotal += b.amount * occurrencesPerYear;
+      });
+      (appState.yearlyBonuses || []).forEach(yb => {
+        annualWindfallTotal += yb.amount;
+      });
+
+      const tiers = appState.windfallTiers || { lifestyle: 50, protection: 20, invest: 30 };
+      const t1Val = annualWindfallTotal * ((tiers.lifestyle || 0) / 100);
+      const t2Val = annualWindfallTotal * ((tiers.protection || 0) / 100);
+      const t3Val = annualWindfallTotal * ((tiers.invest || 0) / 100);
+
+      const windfallTotalEl = document.getElementById("stat-annual-windfall-total");
+      if (windfallTotalEl) windfallTotalEl.textContent = `${formatRupiah(annualWindfallTotal)} / Thn`;
+
+      const t1Badge = document.getElementById("badge-windfall-t1-pct");
+      const t2Badge = document.getElementById("badge-windfall-t2-pct");
+      const t3Badge = document.getElementById("badge-windfall-t3-pct");
+      const t1ValEl = document.getElementById("stat-windfall-t1-val");
+      const t2ValEl = document.getElementById("stat-windfall-t2-val");
+      const t3ValEl = document.getElementById("stat-windfall-t3-val");
+
+      if (t1Badge) t1Badge.textContent = `${tiers.lifestyle}%`;
+      if (t2Badge) t2Badge.textContent = `${tiers.protection}%`;
+      if (t3Badge) t3Badge.textContent = `${tiers.invest}%`;
+
+      if (t1ValEl) t1ValEl.textContent = `${formatRupiah(t1Val)}/thn`;
+      if (t2ValEl) t2ValEl.textContent = `${formatRupiah(t2Val)}/thn`;
+      if (t3ValEl) t3ValEl.textContent = `${formatRupiah(t3Val)}/thn`;
+
       // Emergency Fund
       const efTargetMonths = appState.emergencyFundMonthsTarget || 6;
       const emergencyTarget = totalOutflow * efTargetMonths;
@@ -3006,7 +3329,6 @@
       const efMonthsETA = currentMonthlyEFDeposit > 0 ? Math.ceil(efRemainingNeeded / currentMonthlyEFDeposit) : 0;
       const efProgressPct = emergencyTarget > 0 ? Math.min(100, (efCurrent / emergencyTarget) * 100) : 0;
 
-      // Update Emergency Fund UI elements
       const efTargetEl = document.getElementById("stat-emergency-target");
       if (efTargetEl) efTargetEl.textContent = formatRupiah(emergencyTarget);
       const efProgText = document.getElementById("ef-progress-text");
@@ -3035,29 +3357,61 @@
         }
       }
 
-      // Surplus after EF
-      const surplusAfterEF = Math.max(0, surplus - currentMonthlyEFDeposit);
-      const savingPct = (appState.monthlySavingPercent !== undefined ? appState.monthlySavingPercent : 50) / 100;
-      const currentMonthlySaving = surplusAfterEF > 0 ? surplusAfterEF * savingPct : 0;
-      const remainingFreeCash = Math.max(0, surplusAfterEF - currentMonthlySaving);
+      // Top KPIs Calculations with Percentage of Income
+      const expensePct = totalIncome > 0 ? (totalExpense / totalIncome) * 100 : 0;
+      const debtPct = totalIncome > 0 ? (totalMonthlyDebt / totalIncome) * 100 : 0;
+      const surplusPct = totalIncome > 0 ? (surplus / totalIncome) * 100 : 0;
 
-      // Top KPIs
       document.getElementById("stat-total-income").textContent = formatRupiah(totalIncome);
       document.getElementById("stat-total-expense").textContent = formatRupiah(totalExpense);
+      const expBadge = document.getElementById("stat-expense-pct-badge");
+      const expBar = document.getElementById("stat-expense-pct-bar");
+      const expDesc = document.getElementById("stat-expense-pct-desc");
+      if (expBadge) expBadge.textContent = `${expensePct.toFixed(1)}% DARI KAS`;
+      if (expBar) expBar.style.width = `${Math.min(100, Math.max(0, expensePct))}%`;
+      if (expDesc) expDesc.textContent = totalIncome > 0 ? `Memakai ${expensePct.toFixed(1)}% dari pemasukan` : "Belum ada pemasukan terdaftar";
+
       document.getElementById("stat-total-debt-payment").textContent = formatRupiah(totalMonthlyDebt);
+      const debtBadge = document.getElementById("stat-debt-pct-badge");
+      const debtBar = document.getElementById("stat-debt-pct-bar");
+      const debtDesc = document.getElementById("stat-debt-pct-desc");
+      if (debtBadge) debtBadge.textContent = `${debtPct.toFixed(1)}% DARI KAS`;
+      if (debtBar) debtBar.style.width = `${Math.min(100, Math.max(0, debtPct))}%`;
+      if (debtDesc) debtDesc.textContent = totalIncome > 0 ? `Memakai ${debtPct.toFixed(1)}% dari pemasukan` : "Belum ada pemasukan terdaftar";
 
       const surplusEl = document.getElementById("stat-free-surplus");
-      const badgeSurplus = document.getElementById("stat-surplus-badge");
+      const surplusBadge = document.getElementById("stat-surplus-pct-badge");
+      const surplusBar = document.getElementById("stat-surplus-pct-bar");
+      const surplusDesc = document.getElementById("stat-surplus-pct-desc");
+
       if (surplus >= 0) {
         surplusEl.textContent = formatRupiah(surplus);
         surplusEl.className = "text-xl sm:text-2xl font-black font-mono-nums text-emerald-600 dark:text-emerald-400";
-        badgeSurplus.textContent = "SURPLUS";
-        badgeSurplus.className = "neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums";
+        if (surplusBadge) {
+          surplusBadge.textContent = `${surplusPct.toFixed(1)}% TERSISA`;
+          surplusBadge.className = "neo-badge px-1.5 py-0.5 bg-[#4ade80] text-black text-[10px] font-mono-nums";
+        }
+        if (surplusBar) {
+          surplusBar.className = "h-full bg-[#4ade80] transition-all duration-300";
+          surplusBar.style.width = `${Math.min(100, Math.max(0, surplusPct))}%`;
+        }
+        if (surplusDesc) {
+          surplusDesc.textContent = totalIncome > 0 ? `Tersisa ${surplusPct.toFixed(1)}% dari pemasukan` : "Kapasitas tabungan & investasi";
+        }
       } else {
         surplusEl.textContent = "- " + formatRupiah(Math.abs(surplus));
         surplusEl.className = "text-xl sm:text-2xl font-black font-mono-nums text-rose-600 dark:text-rose-400";
-        badgeSurplus.textContent = "DEFISIT";
-        badgeSurplus.className = "neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px] font-mono-nums";
+        if (surplusBadge) {
+          surplusBadge.textContent = `${Math.abs(surplusPct).toFixed(1)}% DEFISIT`;
+          surplusBadge.className = "neo-badge px-1.5 py-0.5 bg-[#ff6b6b] text-black text-[10px] font-mono-nums";
+        }
+        if (surplusBar) {
+          surplusBar.className = "h-full bg-[#ff6b6b] transition-all duration-300";
+          surplusBar.style.width = "100%";
+        }
+        if (surplusDesc) {
+          surplusDesc.textContent = `Defisit ${Math.abs(surplusPct).toFixed(1)}% melebihi pemasukan`;
+        }
       }
 
       // DSR Diagnostic
@@ -3088,8 +3442,23 @@
       renderCashflowLists();
       renderDebtPortfolio();
       renderGoalSimulation();
-      renderDonutChart(totalExpense, totalMonthlyDebt, currentMonthlyEFDeposit, currentMonthlySaving, remainingFreeCash);
+      renderDashboardDonut();
       renderSpikeTimelineChart();
+    }
+
+    function ensureChartReady(callback) {
+      if (typeof Chart !== 'undefined') {
+        callback();
+      } else {
+        let count = 0;
+        const interval = setInterval(() => {
+          count++;
+          if (typeof Chart !== 'undefined' || count > 50) {
+            clearInterval(interval);
+            callback();
+          }
+        }, 100);
+      }
     }
 
     window.onload = function () {
@@ -3106,13 +3475,8 @@
       if (startEl) startEl.value = todayStr;
       if (endEl) endEl.value = nextYearStr;
 
-      // Set slider controls
-      if (appState.bonusSavingPercent !== undefined) {
-        const el = document.getElementById("slider-bonus-saving-percent");
-        if (el) el.value = appState.bonusSavingPercent;
-        const disp = document.getElementById("display-bonus-saving-percent");
-        if (disp) disp.textContent = `${appState.bonusSavingPercent}% DIINVESTASIKAN`;
-      }
+      syncWindfallUI();
+
       if (appState.monthlySavingPercent !== undefined) {
         const el = document.getElementById("slider-saving-percent");
         if (el) el.value = appState.monthlySavingPercent;
@@ -3126,35 +3490,13 @@
         if (disp) disp.textContent = `${appState.emergencyFundAllocPercent}% / bln`;
       }
       if (appState.emergencyFundMonthsTarget) {
-        const parsed = parseInt(appState.emergencyFundMonthsTarget, 10) || 6;
-        [3, 6, 12].forEach(m => {
-          const btn = document.getElementById(`btn-ef-${m}`);
-          if (btn) {
-            btn.className = m === parsed 
-              ? "neo-btn px-2 py-0.5 text-[10px] bg-[#38bdf8] text-black font-mono-nums" 
-              : "neo-btn px-2 py-0.5 text-[10px] bg-white dark:bg-zinc-800 text-black dark:text-white font-mono-nums";
-          }
-        });
+        setEmergencyMonthsTarget(appState.emergencyFundMonthsTarget);
       }
 
-      // Set horizon controls
       if (appState.horizonYears) {
-        const parsed = parseInt(appState.horizonYears, 10) || 10;
-        const disp = document.getElementById("display-selected-horizon");
-        if (disp) disp.textContent = `HORIZON: ${parsed} TAHUN`;
-        const inp = document.getElementById("input-custom-horizon");
-        if (inp) inp.value = parsed;
-        [5, 10, 20, 60, 100].forEach(y => {
-          const btn = document.getElementById(`btn-horizon-${y}`);
-          if (btn) {
-            btn.className = y === parsed 
-              ? "neo-btn px-3 py-1 text-xs bg-[#ffde59] text-black font-mono-nums" 
-              : "neo-btn px-3 py-1 text-xs bg-white dark:bg-zinc-900 text-black dark:text-white font-mono-nums";
-          }
-        });
+        setHorizonYears(appState.horizonYears);
       }
 
-      // Set rate controls
       if (appState.rates) {
         const rSaham = document.getElementById("rate-saham");
         if (rSaham) rSaham.value = appState.rates.saham;
